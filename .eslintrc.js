@@ -16,6 +16,34 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember/no-duplicate-dependent-keys': 2,
+    'ember/no-observers': 2,
+    'ember/new-module-imports': 2,
+    'ember/require-super-in-init': 2,
+    'ember/order-in-components': [2, {
+      order: [
+        'service',
+        'property',
+        'unknown',
+        'single-line-function',
+        'multi-line-function',
+        'init',
+        'didReceiveAttrs',
+        'willRender',
+        'willInsertElement',
+        'didInsertElement',
+        'didRender',
+        'didUpdateAttrs',
+        'willUpdate',
+        'didUpdate',
+        'willDestroyElement',
+        'willClearRender',
+        'didDestroyElement',
+        'empty-method',
+        'method',
+        'actions',
+      ]
+    }]
   },
   overrides: [
     // node files
