@@ -1,7 +1,9 @@
-ember-tabs
+ember-aria-tabs
 ==============================================================================
 
-[Short description of the addon.]
+This addon is inspired by the _howto-tabs_ from the [howto-components](https://github.com/GoogleChromeLabs/howto-components) repository of _Goolge Chrome Labs_.
+
+It is purposely made without any css at all.
 
 
 Compatibility
@@ -15,15 +17,68 @@ Compatibility
 Installation
 ------------------------------------------------------------------------------
 
-```
-ember install ember-tabs
+```console
+ember install ember-aria-tabs
 ```
 
 
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+Simple example with inline styles:
+
+```hbs
+{{#aria-tabs data-test="tabs" as |t|}}
+  {{#t.tab
+    class="defaultTabClassNames"
+    selectClassNames="tabSelected"
+    unselectClassNames="tabUnselected"
+    data-test="tab-one"
+  }}
+    tab one
+  {{/t.tab}}
+  {{#t.panel
+    class="defaultPanelClassNames"
+    selectClassNames="panelSelected"
+    unselecClassNames="panelUnselected"
+    data-test="panel-one"
+  }}
+    panel one
+  {{/t.panel}}
+  {{#t.tab
+    class="defaultTabClassNames"
+    selectClassNames="tabSelected"
+    unselectClassNames="tabUnselected"
+    data-test="tab-two"
+  }}
+    tab two
+  {{/t.tab}}
+  {{#t.panel
+    class="defaultPanelClassNames"
+    selectClassNames="panelSelected"
+    unselecClassNames="panelUnselected"
+    data-test="panel-two"
+  }}
+    panel two
+  {{/t.panel}}
+  {{#t.tab
+    class="defaultTabClassNames"
+    selectClassNames="tabSelected"
+    unselectClassNames="tabUnselected"
+    data-test="tab-three"
+  }}
+    tab three
+  {{/t.tab}}
+  {{#t.panel
+    class="defaultPanelClassNames"
+    selectClassNames="panelSelected"
+    unselecClassNames="panelUnselected"
+    data-test="panel-three"
+  }}
+    panel three
+  {{/t.panel}}
+{{/aria-tabs}}
+```
 
 
 Contributing
