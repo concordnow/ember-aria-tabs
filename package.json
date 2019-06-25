@@ -1,5 +1,5 @@
 {
-  "name": "ember-tabs",
+  "name": "ember-aria-tabs",
   "version": "1.0.0",
   "description": "A tabs component for Ember applications following the tab panel pattern in ARIA",
   "keywords": [
@@ -8,7 +8,7 @@
     "ARIA",
     "ember-addon"
   ],
-  "repository": "https://github.com/concordnow/ember-tabs",
+  "repository": "https://github.com/concordnow/ember-aria-tabs",
   "license": "MIT",
   "author": "Concord Worldwide Inc.",
   "directories": {
