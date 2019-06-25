@@ -16,6 +16,7 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember/no-attrs-in-components': 0,
     'ember/no-duplicate-dependent-keys': 2,
     'ember/no-observers': 2,
     'ember/new-module-imports': 2,
