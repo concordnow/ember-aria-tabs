@@ -31,7 +31,7 @@
     "@ember/optional-features": "^0.7.0",
     "@ember/render-modifiers": "^1.0.0",
     "@glimmer/component": "^0.14.0-alpha.7",
-    "babel-eslint": "^8.2.6",
+    "babel-eslint": "^10.0.2",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^1.3.0",
     "ember-cli": "github:ember-cli/ember-cli#ba9e3ea9bcad1c6e2299e40fe265cffe61d7a25b",
