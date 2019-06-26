@@ -10,6 +10,7 @@ Router.map(function() {
   docsRoute(this, function() {
     this.route('usage');
   });
+  this.route('not-found', { path: '/*path' });
 });
 
 export default Router;
