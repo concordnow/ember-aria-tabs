@@ -1,6 +1,6 @@
 {
   "name": "ember-aria-tabs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A tabs component for Ember applications following the tab panel pattern in ARIA",
   "keywords": [
     "tab",
