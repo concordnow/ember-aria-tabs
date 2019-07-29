@@ -1,0 +1,1 @@
+{"jsonapi":{"version":"1.0"},"data":{"type":"project","id":"ember-aria-tabs","attributes":{"name":"ember-aria-tabs","version":"1.0.5","navigationIndex":[]},"relationships":{"modules":{"data":[]}}}}
