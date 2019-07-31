@@ -1,0 +1,1 @@
+.tabsClassNames{display:flex;flex-wrap:wrap}.defaultTabClassNames{cursor:pointer;padding:5px}.tabSelected{color:red}.tabUnselected{color:#000}.defaultPanelClassNames{order:99999;flex-basis:100%}.panelSelected{border-top:1px solid #000;padding-left:5px}
