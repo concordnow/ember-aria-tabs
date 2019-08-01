@@ -2,7 +2,7 @@
 
 ## Installation
 
-* `git clone <repository-url>`
+* `git clone git@github.com:concordnow/ember-aria-tabs.git`
 * `cd ember-aria-tabs`
 * `npm install`
 

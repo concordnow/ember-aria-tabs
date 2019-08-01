@@ -1,6 +1,5 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module'
@@ -16,41 +15,11 @@ module.exports = {
     browser: true
   },
   rules: {
-    'ember/no-attrs-in-components': 0,
-    'ember/no-duplicate-dependent-keys': 2,
-    'ember/no-observers': 2,
-    'ember/new-module-imports': 2,
-    'ember/require-super-in-init': 2,
-    'ember/order-in-components': [2, {
-      order: [
-        'service',
-        'property',
-        'unknown',
-        'single-line-function',
-        'multi-line-function',
-        'init',
-        'didReceiveAttrs',
-        'willRender',
-        'willInsertElement',
-        'didInsertElement',
-        'didRender',
-        'didUpdateAttrs',
-        'willUpdate',
-        'didUpdate',
-        'willDestroyElement',
-        'willClearRender',
-        'didDestroyElement',
-        'empty-method',
-        'method',
-        'actions',
-      ]
-    }]
   },
   overrides: [
     // node files
     {
       files: [
-        '.ember-cli.js',
         '.eslintrc.js',
         '.template-lintrc.js',
         'ember-cli-build.js',
@@ -67,8 +36,7 @@ module.exports = {
         'tests/dummy/app/**'
       ],
       parserOptions: {
-        sourceType: 'script',
-        ecmaVersion: 2015
+        sourceType: 'script'
       },
       env: {
         browser: false,

@@ -1,10 +1,11 @@
 ember-aria-tabs
 ==============================================================================
 
-This addon is inspired by the _howto-tabs_ from the [howto-components](https://github.com/GoogleChromeLabs/howto-components) repository of _Goolge Chrome Labs_.
+[![Build Status](https://travis-ci.org/concordnow/ember-aria-tabs.svg?branch=master)](https://travis-ci.org/concordnow/ember-aria-tabs)
+[![Ember Observer Score](https://emberobserver.com/badges/ember-aria-tabs.svg)](https://emberobserver.com/addons/ember-aria-tabs)
+[![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/concordnow/ember-aria-tabs)
 
-It is purposely made without any css at all.
-
+An accessible and easy tab component for ReactJS.
 
 Compatibility
 ------------------------------------------------------------------------------
@@ -17,7 +18,7 @@ Compatibility
 Installation
 ------------------------------------------------------------------------------
 
-```console
+```
 ember install ember-aria-tabs
 ```
 
@@ -25,60 +26,7 @@ ember install ember-aria-tabs
 Usage
 ------------------------------------------------------------------------------
 
-Simple example with inline styles:
-
-```hbs
-{{#aria-tabs data-test="tabs" as |t|}}
-  {{#t.tab
-    class="defaultTabClassNames"
-    selectClassNames="tabSelected"
-    unselectClassNames="tabUnselected"
-    data-test="tab-one"
-  }}
-    tab one
-  {{/t.tab}}
-  {{#t.panel
-    class="defaultPanelClassNames"
-    selectClassNames="panelSelected"
-    unselecClassNames="panelUnselected"
-    data-test="panel-one"
-  }}
-    panel one
-  {{/t.panel}}
-  {{#t.tab
-    class="defaultTabClassNames"
-    selectClassNames="tabSelected"
-    unselectClassNames="tabUnselected"
-    data-test="tab-two"
-  }}
-    tab two
-  {{/t.tab}}
-  {{#t.panel
-    class="defaultPanelClassNames"
-    selectClassNames="panelSelected"
-    unselecClassNames="panelUnselected"
-    data-test="panel-two"
-  }}
-    panel two
-  {{/t.panel}}
-  {{#t.tab
-    class="defaultTabClassNames"
-    selectClassNames="tabSelected"
-    unselectClassNames="tabUnselected"
-    data-test="tab-three"
-  }}
-    tab three
-  {{/t.tab}}
-  {{#t.panel
-    class="defaultPanelClassNames"
-    selectClassNames="panelSelected"
-    unselecClassNames="panelUnselected"
-    data-test="panel-three"
-  }}
-    panel three
-  {{/t.panel}}
-{{/aria-tabs}}
-```
+[Longer description of how to use the addon in apps.]
 
 
 Contributing
