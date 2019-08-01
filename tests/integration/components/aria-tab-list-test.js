@@ -1,26 +1,101 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, setupOnerror } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | aria-tab-list', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders with sane default', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
     await render(hbs`<AriaTabList />`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    let tabList = this.element.querySelector('[role="tablist"]');
+    assert.equal(tabList.textContent.trim(), '');
+  });
 
-    // Template block usage:
+  test('it renders with class', async function(assert) {
+
+    await render(hbs`<AriaTabList class="foobar" />`);
+
+    let tabList = this.element.querySelector('[role="tablist"]');
+    assert.equal(tabList.classList.contains('foobar'), true);
+  });
+
+  test('it pass through custom properties', async function(assert) {
+
+    await render(hbs`<AriaTabList data-tooltip="Tooltip contents" />`);
+
+    let tabList = this.element.querySelector('[role="tablist"]');
+    assert.equal(tabList.getAttribute('data-tooltip'), 'Tooltip contents');
+  });
+
+  test('it does not allow overriding all default properties', async function(assert) {
+    setupOnerror(function(err) {
+      assert.ok(err);
+    });
+
+    await render(hbs`<AriaTabList @role="micro-tab" />`);
+  });
+
+  test('it retains the default classnames for active and disabled tab', async function(assert) {
     await render(hbs`
-      <AriaTabList>
-        template block text
-      </AriaTabList>
+      <AriaTabs @defaultIndex={{0}} as |at|>
+        <at.tabList as |tl|>
+          <tl.tab>Foo</tl.tab>
+          <tl.tab @disabled={{true}}>Bar</tl.tab>
+        </at.tabList>
+        <at.tabPanel>Foo</at.tabPanel>
+        <at.tabPanel>Bar</at.tabPanel>
+      </AriaTabs>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    let tabs = this.element.querySelectorAll('[role="tab"]');
+    // assert.equal(tabs[0].classList.contains('ember-tabs__tab--selected'), true);
+    assert.equal(tabs[1].classList.contains('ember-tabs__tab--disabled'), true);
+  });
+
+  test('it display the custom classnames for selected and disabled tab specified on tabs', async function(assert) {
+    await render(hbs`
+      <AriaTabs
+        @defaultIndex={{0}}
+        @selectedTabClassName="active"
+        @disabledTabClassName="disabled"
+      as |at|>
+        <at.tabList as |tl|>
+          <tl.tab>Foo</tl.tab>
+          <tl.tab @disabled={{true}}>Bar</tl.tab>
+        </at.tabList>
+        <at.tabPanel>Foo</at.tabPanel>
+        <at.tabPanel>Bar</at.tabPanel>
+      </AriaTabs>
+    `);
+
+    let tabs = this.element.querySelectorAll('[role="tab"]');
+    assert.equal(tabs[0].classList.contains('active'), true);
+    assert.equal(tabs[1].classList.contains('disabled'), true);
+  });
+
+  test('it display the custom classnames for selected and disabled tab', async function(assert) {
+    await render(hbs`
+      <AriaTabs @defaultIndex={{0}} as |at|>
+        <at.tabList as |tl|>
+          <tl.tab @selectedClassName="active" @disabledClassName="disabled">
+            Foo
+          </tl.tab>
+          <tl.tab @disabled={{true}} @selectedClassName="active" @disabledClassName="disabled">
+            Bar
+          </tl.tab>
+        </at.tabList>
+        <at.tabPanel>Foo</at.tabPanel>
+        <at.tabPanel>Bar</at.tabPanel>
+      </AriaTabs>
+    `);
+
+    let tabs = this.element.querySelectorAll('[role="tab"]');
+    assert.equal(tabs[0].classList.contains('active'), true);
+    assert.equal(tabs[1].classList.contains('disabled'), true);
   });
 });
