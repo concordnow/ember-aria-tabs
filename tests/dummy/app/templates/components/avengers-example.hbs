@@ -1,0 +1,35 @@
+{{! template-lint-disable no-inline-styles style-concatenation }}
+{{!-- BEGIN-SNIPPET avengers-example.hbs --}}
+<p>
+  {{#each this.characters as |char|}}
+    <label key={{char.name}}>
+      <input
+        type="checkbox"
+        name={{char.name}}
+        checked={{char.checked}}
+        onclick={{action (mut char.checked) value="target.checked"}}
+      >
+      {{char.name}}&nbsp;
+    </label>
+  {{/each}}
+</p>
+
+<AriaTabs
+  @selectedTabClassName="avengers-tab--selected"
+  @selectedTabPanelClassName="avengers-tab-panel--selected"
+  as |at|>
+  <at.tabList class="avengers-tab-list" as |tl|>
+    {{#each this.checkedCharacters as |char|}}
+      <tl.tab style="background-color: {{char.color}}" class="avengers-tab">
+        <img src={{char.img}} alt={{char.name}} height="32" width="32">
+      </tl.tab>
+    {{/each}}
+  </at.tabList>
+
+  {{#each this.checkedCharacters as |char|}}
+    <at.tabPanel style="background-color: {{char.color}}; color: {{char.text}}" class="avengers-tab-panel">
+      {{char.desc}}
+    </at.tabPanel>
+  {{/each}}
+</AriaTabs>
+{{!-- END-SNIPPET --}}

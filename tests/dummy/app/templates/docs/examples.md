@@ -184,3 +184,14 @@
 
   {{demo.snippet "matt-groening.hbs"}}
 {{/docs-demo}}
+
+## Avengers Example
+
+{{#docs-demo as |demo|}}
+  {{#demo.example}}
+    <AvengersExample />
+  {{/demo.example}}
+
+  {{demo.snippet 'avengers-example.hbs'}}
+  {{demo.snippet 'avengers-example.js' label='component.js'}}
+{{/docs-demo}}
