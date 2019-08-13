@@ -48,9 +48,9 @@ jobs:
       env: EMBER_TRY_SCENARIO=ember-lts-3.1
     - env: EMBER_TRY_SCENARIO=ember-lts-3.4
     - env: EMBER_TRY_SCENARIO=ember-lts-3.8
-    - env: PERCY_ENABLE=0 MBER_TRY_SCENARIO=ember-release
-    - env: PERCY_ENABLE=0 MBER_TRY_SCENARIO=ember-beta
-    - env: PERCY_ENABLE=0 MBER_TRY_SCENARIO=ember-canary
+    - env: PERCY_ENABLE=0 EMBER_TRY_SCENARIO=ember-release
+    - env: PERCY_ENABLE=0 EMBER_TRY_SCENARIO=ember-beta
+    - env: PERCY_ENABLE=0 EMBER_TRY_SCENARIO=ember-canary
     - env: EMBER_TRY_SCENARIO=ember-default-with-jquery
 
     - stage: deploy
