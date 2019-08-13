@@ -56,7 +56,7 @@ export default Component.extend({
    *
    * The callback can optionally return `false` to cancel the change to the new tab.
    *
-   * > Returning `false` when the change to the new tab should be canceled is also important in controlled mode, as ember-tabs still internally handles the focus of the tabs.
+   * > Returning `false` when the change to the new tab should be canceled is also important in controlled mode, as ember-aria-tabs still internally handles the focus of the tabs.
    *
    * > In controlled mode the `onSelect` handler is a required prop.
    *
@@ -146,7 +146,7 @@ export default Component.extend({
     if (!isNone(mode) && mode !== newMode) {
       throw new Error(
         `Switching between controlled mode (by using \`selectedIndex\`) and uncontrolled mode is not supported in \`AriaTabs\`.
-For more information about controlled and uncontrolled mode of ember-tabs see the README.`,
+For more information about controlled and uncontrolled mode of ember-aria-tabs see the README.`,
       );
     }
 
