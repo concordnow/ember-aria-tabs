@@ -44,7 +44,14 @@ Here is a basic example:
 
 ```
 
-You can find more examples [here](https://concordnow.github.io/ember-content-loader/docs/examples).
+You can find more examples [here](https://concordnow.github.io/ember-aria-tabs/docs/examples).
+
+
+Thanks
+------------------------------------------------------------------------------
+
+* [react-tabs](https://github.com/reactjs/react-tabs)
+* [ember-cli-addon-docs](https://github.com/ember-learn/ember-cli-addon-docs)
 
 
 Contributing

@@ -7,6 +7,8 @@ import layout from '../templates/components/aria-tab-list';
  *
  * If you specify additional props on the `<AriaTabList />` component they will be forwarded to the rendered `<ul />`.
  *
+ * Default CSS class: `ember-tabs__tab-list`
+ *
  * @class AriaTabList
  * @public
  */

@@ -10,6 +10,8 @@ const DEFAULT_CLASS = 'ember-tabs__tab';
  *
  * If you specify additional props on the `<AriaTab />` component they will be forwarded to the rendered `<li />`.
  *
+ * Default CSS class: `ember-tabs__tab`
+ *
  * @class AriaTab
  * @public
  */

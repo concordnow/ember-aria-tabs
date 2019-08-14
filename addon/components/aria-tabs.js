@@ -13,6 +13,8 @@ const DEFAULT_CLASS = 'ember-tabs';
  *
  * If you specify additional props on the `<AriaTabs />` component they will be forwarded to the rendered `<div />`.
  *
+ * Default CSS class: `ember-tabs`
+ *
  * @class AriaTabs
  * @public
  */
