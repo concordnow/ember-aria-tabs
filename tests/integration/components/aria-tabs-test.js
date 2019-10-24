@@ -194,6 +194,48 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assertTabSelected(assert, 2);
   });
 
+  test('it yield selected state', async function(assert) {
+    await render(hbs`
+      <AriaTabs @forceRenderTabPanel={{true}} as |at|>
+        <at.tabList as |tl|>
+          <tl.tab as |t|>Foo {{t.selected}}</tl.tab>
+          <tl.tab as |t|>Bar {{t.selected}}</tl.tab>
+          <tl.tab as |t|>Baz {{t.selected}}</tl.tab>
+          <tl.tab @disabled={{true}} as |t|>Qux {{t.selected}}</tl.tab>
+        </at.tabList>
+        <at.tabPanel as |tp|>Hello Foo {{tp.selected}}</at.tabPanel>
+        <at.tabPanel as |tp|>Hello Bar {{tp.selected}}</at.tabPanel>
+        <at.tabPanel as |tp|>Hello Baz {{tp.selected}}</at.tabPanel>
+        <at.tabPanel as |tp|>Hello Qux {{tp.selected}}</at.tabPanel>
+      </AriaTabs>
+    `);
+
+    let tabs = findAll('[role="tab"]');
+    let panels = findAll('[role="tabpanel"]');
+
+    assert.equal(tabs[0].textContent.trim(), 'Foo true');
+    assert.equal(tabs[1].textContent.trim(), 'Bar false');
+    assert.equal(tabs[2].textContent.trim(), 'Baz false');
+    assert.equal(tabs[3].textContent.trim(), 'Qux false');
+
+    assert.equal(panels[0].textContent.trim(), 'Hello Foo true');
+    assert.equal(panels[1].textContent.trim(), 'Hello Bar false');
+    assert.equal(panels[2].textContent.trim(), 'Hello Baz false');
+    assert.equal(panels[3].textContent.trim(), 'Hello Qux false');
+
+    await click(tabs[2]);
+
+    assert.equal(tabs[0].textContent.trim(), 'Foo false');
+    assert.equal(tabs[1].textContent.trim(), 'Bar false');
+    assert.equal(tabs[2].textContent.trim(), 'Baz true');
+    assert.equal(tabs[3].textContent.trim(), 'Qux false');
+
+    assert.equal(panels[0].textContent.trim(), 'Hello Foo false');
+    assert.equal(panels[1].textContent.trim(), 'Hello Bar false');
+    assert.equal(panels[2].textContent.trim(), 'Hello Baz true');
+    assert.equal(panels[3].textContent.trim(), 'Hello Qux false');
+  });
+
   test('it does not change selectedIndex when clicking a disabled tab', async function(assert) {
     await createTabs();
 
