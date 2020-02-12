@@ -126,9 +126,10 @@ if(n)return n
 var i=t.split(":"),o=i[0],a=i[1]
 return b[t]=(0,r.intern)(o+":"+a+"-"+y)},e.FACTORY_FOR=e.Container=e.Registry=void 0
 var o=function(){function e(e,t){void 0===t&&(t={}),this.registry=e,this.owner=t.owner||null,this.cache=(0,r.dictionary)(t.cache||null),this.factoryManagerCache=(0,r.dictionary)(t.factoryManagerCache||null),this.isDestroyed=!1,this.isDestroying=!1}var n=e.prototype
-return n.lookup=function(e,t){return u(this,this.registry.normalize(e),t)},n.destroy=function(){f(this),this.isDestroying=!0},n.finalizeDestroy=function(){h(this),this.isDestroyed=!0},n.reset=function(e){this.isDestroyed||(void 0===e?(f(this),h(this)):function(e,t){var r=e.cache[t]
+return n.lookup=function(e,t){if(this.isDestroyed)throw new Error("Can not call `.lookup` after the owner has been destroyed")
+return u(this,this.registry.normalize(e),t)},n.destroy=function(){this.isDestroying=!0,f(this)},n.finalizeDestroy=function(){h(this),this.isDestroyed=!0},n.reset=function(e){this.isDestroyed||(void 0===e?(f(this),h(this)):function(e,t){var r=e.cache[t]
 delete e.factoryManagerCache[t],r&&(delete e.cache[t],r.destroy&&r.destroy())}(this,this.registry.normalize(e)))},n.ownerInjection=function(){var e
-return(e={})[t.OWNER]=this.owner,e},n.factoryFor=function(e,t){void 0===t&&(t={})
+return(e={})[t.OWNER]=this.owner,e},n.factoryFor=function(e,t){if(void 0===t&&(t={}),this.isDestroyed)throw new Error("Can not call `.factoryFor` after the owner has been destroyed")
 var r=this.registry.normalize(e)
 if(!t.source&&!t.namespace||(r=this.registry.expandLocalLookup(e,t)))return l(this,r,e)},e}()
 function a(e,t){return!1!==e.registry.getOption(t,"singleton")}function s(e,t){return!1!==e.registry.getOption(t,"instantiate")}function u(e,t,r){void 0===r&&(r={})
@@ -137,8 +138,8 @@ if(!r.source&&!r.namespace||(n=e.registry.expandLocalLookup(t,r))){if(!1!==r.sin
 if(void 0!==i)return i}return function(e,t,r,n){var i=l(e,t,r)
 if(void 0===i)return
 if(function(e,t,r){var n=r.instantiate
-return!1!==r.singleton&&!1!==n&&a(e,t)&&s(e,t)}(e,r,n))return e.cache[t]=i.create()
-if(function(e,t,r){var n=r.instantiate,i=r.singleton
+return!1!==r.singleton&&!1!==n&&a(e,t)&&s(e,t)}(e,r,n)){var o=e.cache[t]=i.create()
+return e.isDestroying&&"function"==typeof o.destroy&&o.destroy(),o}if(function(e,t,r){var n=r.instantiate,i=r.singleton
 return!1!==n&&(!1!==i||a(e,t))&&s(e,t)}(e,r,n))return i.create()
 if(function(e,t,r){var n=r.instantiate
 return!1!==r.singleton&&!n&&a(e,t)&&!s(e,t)}(e,r,n)||function(e,t,r){var n=r.instantiate,i=r.singleton
@@ -158,13 +159,15 @@ i.destroy&&i.destroy()}}function h(e){e.cache=(0,r.dictionary)(null),e.factoryMa
 var p=new WeakMap
 e.FACTORY_FOR=p
 var m=function(){function e(e,t,r,n){this.container=e,this.owner=e.owner,this.class=t,this.fullName=r,this.normalizedName=n,this.madeToString=void 0,this.injections=void 0,p.set(this,this)}var r=e.prototype
-return r.toString=function(){return void 0===this.madeToString&&(this.madeToString=this.container.registry.makeToString(this.class,this.fullName)),this.madeToString},r.create=function(e){var r=this.injections
-if(void 0===r){var n=d(this.container,this.normalizedName),o=n.injections
-r=o,n.isDynamic||(this.injections=o)}var a=r
-if(void 0!==e&&(a=(0,i.assign)({},r,e)),!this.class.create)throw new Error("Failed to create an instance of '"+this.normalizedName+"'. Most likely an improperly defined class or an invalid module export.")
-"function"==typeof this.class._initFactory?this.class._initFactory(this):(void 0!==e&&void 0!==a||(a=(0,i.assign)({},a)),(0,t.setOwner)(a,this.owner))
-var s=this.class.create(a)
-return p.set(s,this),s},e}(),v=/^[^:]+:[^:]+$/,g=function(){function e(e){void 0===e&&(e={}),this.fallback=e.fallback||null,this.resolver=e.resolver||null,this.registrations=(0,r.dictionary)(e.registrations||null),this._typeInjections=(0,r.dictionary)(null),this._injections=(0,r.dictionary)(null),this._localLookupCache=Object.create(null),this._normalizeCache=(0,r.dictionary)(null),this._resolveCache=(0,r.dictionary)(null),this._failSet=new Set,this._options=(0,r.dictionary)(null),this._typeOptions=(0,r.dictionary)(null)}var t=e.prototype
+return r.toString=function(){return void 0===this.madeToString&&(this.madeToString=this.container.registry.makeToString(this.class,this.fullName)),this.madeToString},r.create=function(e){var r=this.container
+if(r.isDestroyed)throw new Error("Can not create new instances after the owner has been destroyed (you attempted to create "+this.fullName+")")
+var n=this.injections
+if(void 0===n){var o=d(this.container,this.normalizedName),a=o.injections
+n=a,o.isDynamic||(this.injections=a)}var s=n
+if(void 0!==e&&(s=(0,i.assign)({},n,e)),!this.class.create)throw new Error("Failed to create an instance of '"+this.normalizedName+"'. Most likely an improperly defined class or an invalid module export.")
+"function"==typeof this.class._initFactory?this.class._initFactory(this):(void 0!==e&&void 0!==s||(s=(0,i.assign)({},s)),(0,t.setOwner)(s,this.owner))
+var u=this.class.create(s)
+return p.set(u,this),u},e}(),v=/^[^:]+:[^:]+$/,g=function(){function e(e){void 0===e&&(e={}),this.fallback=e.fallback||null,this.resolver=e.resolver||null,this.registrations=(0,r.dictionary)(e.registrations||null),this._typeInjections=(0,r.dictionary)(null),this._injections=(0,r.dictionary)(null),this._localLookupCache=Object.create(null),this._normalizeCache=(0,r.dictionary)(null),this._resolveCache=(0,r.dictionary)(null),this._failSet=new Set,this._options=(0,r.dictionary)(null),this._typeOptions=(0,r.dictionary)(null)}var t=e.prototype
 return t.container=function(e){return new o(this,e)},t.register=function(e,t,r){void 0===r&&(r={})
 var n=this.normalize(e)
 this._failSet.delete(n),this.registrations[n]=t,this._options[n]=r},t.unregister=function(e){var t=this.normalize(e)
@@ -2655,11 +2658,12 @@ var a=n("TAG_COMPUTE")
 function s(e){return o}function u(e,t){return t>=e[a]()}e.COMPUTE=a
 var l=n("TAG_TYPE")
 e.ALLOW_CYCLES=void 0
-var c=function(){function e(e){this.revision=i,this.lastChecked=i,this.lastValue=i,this.isUpdating=!1,this.subtag=null,this.subtags=null,this[l]=e}return e.prototype[a]=function(){if(this.lastChecked!==o){this.isUpdating=!0,this.lastChecked=o
-try{var e=this.subtags,t=this.subtag,r=this.revision
-if(null!==t&&(r=Math.max(r,t[a]())),null!==e)for(var n=0;n<e.length;n++){var i=e[n][a]()
-r=Math.max(i,r)}this.lastValue=r}finally{this.isUpdating=!1}}return!0===this.isUpdating&&(this.lastChecked=++o),this.lastValue},e.update=function(e,t){var r=e
-t===h?r.subtag=null:(r.subtag=t,r.lastChecked=Math.min(r.lastChecked,t.lastChecked),r.lastValue=Math.max(r.lastValue,t.lastValue))},e.dirty=function(e){e.revision=++o},e}()
+var c=function(){function e(e){this.revision=i,this.lastChecked=i,this.lastValue=i,this.isUpdating=!1,this.subtags=null,this.subtag=null,this.subtagBufferCache=null,this[l]=e}return e.prototype[a]=function(){if(this.lastChecked!==o){this.isUpdating=!0,this.lastChecked=o
+try{var e=this.subtags,t=this.subtag,r=this.subtagBufferCache,n=this.lastValue,i=this.revision
+if(null!==t){var s=t[a]()
+s===r?i=Math.max(i,n):(this.subtagBufferCache=null,i=Math.max(i,s))}if(null!==e)for(var u=0;u<e.length;u++){var l=e[u][a]()
+i=Math.max(l,i)}this.lastValue=i}finally{this.isUpdating=!1}}return!0===this.isUpdating&&(this.lastChecked=++o),this.lastValue},e.update=function(e,t){var r=e,n=t
+n===h?r.subtag=null:(r.subtagBufferCache=n[a](),r.subtag=n)},e.dirty=function(e){e.revision=++o},e}()
 e.MonomorphicTagImpl=c
 var d=c.dirty
 e.dirty=d
@@ -3507,7 +3511,7 @@ F.Test=B.Test,F.Test.Adapter=B.Adapter,F.Test.QUnitAdapter=B.QUnitAdapter,F.setu
 var U=F
 e.default=U,n.IS_NODE?n.module.exports=F:r.context.exports.Ember=r.context.exports.Em=F}),e("ember/version",["exports"],function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
-e.default="3.16.0"}),e("node-module/index",["exports"],function(e){"use strict"
+e.default="3.16.1"}),e("node-module/index",["exports"],function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.require=e.module=e.IS_NODE=void 0
 var t,r,n="object"==typeof module&&"function"==typeof module.require
 e.IS_NODE=n,e.module=t,e.require=r,n?(e.module=t=module,e.require=r=module.require):(e.module=t=null,e.require=r=null)}),e("route-recognizer",["exports"],function(e){"use strict"
