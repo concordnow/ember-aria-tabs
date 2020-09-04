@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, get, getProperties, setProperties } from '@ember/object';
+import { computed, setProperties } from '@ember/object';
 import { next } from '@ember/runloop';
 import layout from '../templates/components/aria-tab';
 
@@ -88,79 +88,36 @@ export default Component.extend({
   }).readOnly(),
 
   nodeIndex: computed('element', 'tabNodes.[]', function() {
-    let {
-      element,
-      tabNodes
-    } = getProperties(this, [
-      'element',
-      'tabNodes'
-    ]);
-    return tabNodes.indexOf(element);
+    return this.tabNodes.indexOf(this.element);
   }),
 
   panelId: computed('nodeIndex', 'panelNodes.[]', function() {
-    let {
-      nodeIndex,
-      panelNodes
-    } = getProperties(this, [
-      'nodeIndex',
-      'panelNodes'
-    ]);
-    let panel = panelNodes[nodeIndex];
+    let panel = this.panelNodes[this.nodeIndex];
     return panel? panel.id : null;
   }),
 
   selected: computed('nodeIndex', 'selectedIndex', function() {
-    let {
-      nodeIndex,
-      selectedIndex
-    } = getProperties(this, [
-      'nodeIndex',
-      'selectedIndex'
-    ]);
-    return nodeIndex === selectedIndex;
+    return this.nodeIndex === this.selectedIndex;
   }),
 
   _selected: computed('selected', function() {
-    return get(this, 'selected') ? 'true' : 'false';
+    return this.selected ? 'true' : 'false';
   }),
 
   _selectedClassName: computed('selected', 'selectedTabClassName', 'selectedClassName', function() {
-    let {
-      selected,
-      selectedTabClassName,
-      selectedClassName
-    } = getProperties(this, [
-      'selected',
-      'selectedTabClassName',
-      'selectedClassName'
-    ]);
-    return selected ? (selectedClassName || selectedTabClassName || `${DEFAULT_CLASS}--selected`) : '';
+    return this.selected ? (this.selectedClassName || this.selectedTabClassName || `${DEFAULT_CLASS}--selected`) : '';
   }),
 
   _disabled: computed('disabled', function() {
-    return get(this, 'disabled') ? 'true' : 'false';
+    return this.disabled ? 'true' : 'false';
   }),
 
   _disabledClassName: computed('disabled', 'disabledTabClassName', 'disabledClassName', function() {
-    let {
-      disabled,
-      disabledTabClassName,
-      disabledClassName
-    } = getProperties(this, [
-      'disabled',
-      'disabledTabClassName',
-      'disabledClassName'
-    ]);
-    return disabled ? (disabledClassName || disabledTabClassName || `${DEFAULT_CLASS}--disabled`) : '';
+    return this.disabled ? (this.disabledClassName || this.disabledTabClassName || `${DEFAULT_CLASS}--disabled`) : '';
   }),
 
   _tabIndex: computed('tabIndex', 'selected', function() {
-    let {
-      tabIndex,
-      selected
-    } = getProperties(this, ['tabIndex', 'selected']);
-    return tabIndex || (selected ? '0' : null);
+    return this.tabIndex || (this.selected ? '0' : null);
   }),
 
   init() {
@@ -183,41 +140,22 @@ export default Component.extend({
   },
 
   click(e) {
-    let {
-      onClick,
-      nodeIndex
-    } = getProperties(this, [
-      'onClick',
-      'nodeIndex'
-    ]);
-    if (onClick) {
-      onClick(nodeIndex, e);
+    if (this.onClick) {
+      this.onClick(this.nodeIndex, e);
     }
   },
 
   keyDown(e) {
-    let {
-      onKeyDown,
-      nodeIndex
-    } = getProperties(this, [
-      'onKeyDown',
-      'nodeIndex'
-    ]);
-    if (onKeyDown) {
-      onKeyDown(nodeIndex, e);
+    if (this.onKeyDown) {
+      this.onKeyDown(this.nodeIndex, e);
     }
   },
 
   checkFocus() {
-    let {
-      element,
-      focus,
-      selected
-    } = getProperties(this, ['element', 'focus', 'selected']);
-    if (selected && focus) {
+    if (this.selected && this.focus) {
       // We need to wait the selected rendering state
       next(() => {
-        element.focus();
+        this.element.focus();
       });
     }
   }

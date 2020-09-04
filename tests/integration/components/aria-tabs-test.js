@@ -159,7 +159,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
       </AriaTabs>
     `);
 
-    assert.equal(this.element.children[0].classList.contains('foobar'), true);
+    assert.equal(this.element.querySelector('.ember-tabs').classList.contains('foobar'), true);
   });
 
 

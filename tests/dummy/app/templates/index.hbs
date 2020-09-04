@@ -1,4 +1,4 @@
-{{docs-hero}}
+<DocsHero />
 
 <div class="docs-container docs-md">
   <section class="docs-max-w-md docs-mx-auto docs-pb-8">
@@ -8,9 +8,9 @@
 
     Ember CLI addon that helps you create accesible tabs easily.
 
-    {{#docs-demo as |demo|}}
-      {{! template-lint-disable }}
-      {{#demo.example name="super-mario.hbs"}}
+    <DocsDemo as |demo|>
+      {{! template-lint-disable link-rel-noopener }}
+      <demo.example @name="super-mario.hbs">
         <AriaTabs as |at|>
           <at.tabList as |tl|>
             <tl.tab>Mario</tl.tab>
@@ -105,19 +105,19 @@
             </p>
           </at.tabPanel>
         </AriaTabs>
-      {{/demo.example}}
-    {{/docs-demo}}
+      </demo.example>
+    </DocsDemo>
     Take a look a the {{docs-link 'source code' 'docs.examples'}}
 
-    <aside class="docs-flex docs-items-center">This addon is provided by &nbsp;<a href="https://concordnow.com"><img width="100" src="https://www.concordnow.com/wp-content/themes/concord/layoutImg/concord_logo-grey.svg" alt="Logo Concord"></a></aside>
+    <aside class="docs-flex docs-items-center">This addon is provided by &nbsp;<a href="https://concordnow.com"><img width="100" src="https://www.concordnow.com/wp-content/themes/concord/layoutImg/concord_logo-grey.svg" alt="Concord"></a></aside>
 
     <div class="docs-my-16 docs-text-right">
-      {{#link-to
-          "docs"
-          class="docs-bg-grey-darkest hover:docs-bg-black docs-text-white docs-py-2 docs-px-4 docs-no-underline docs-rounded"
-      }}
+      <LinkTo
+        @route="docs"
+        class="docs-bg-grey-darkest hover:docs-bg-black docs-text-white docs-py-2 docs-px-4 docs-no-underline docs-rounded"
+      >
         Read the docs →
-      {{/link-to}}
+      </LinkTo>
     </div>
   </section>
 </div>

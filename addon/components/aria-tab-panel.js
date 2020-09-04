@@ -1,5 +1,6 @@
 import Component from '@ember/component';
-import { computed, getProperties, setProperties } from '@ember/object';
+import { computed, setProperties } from '@ember/object';
+import { or } from '@ember/object/computed';
 import layout from '../templates/components/aria-tab-panel';
 
 const DEFAULT_CLASS = 'ember-tabs__tab-panel';
@@ -59,59 +60,23 @@ export default Component.extend({
   }).readOnly(),
 
   nodeIndex: computed('element', 'panelNodes.[]', function() {
-    let {
-      element,
-      panelNodes
-    } = getProperties(this, [
-      'element',
-      'panelNodes'
-    ]);
-    return panelNodes.indexOf(element);
+    return this.panelNodes.indexOf(this.element);
   }),
 
   tabId: computed('nodeIndex', 'tabNodes.[]', function() {
-    let {
-      nodeIndex,
-      tabNodes
-    } = getProperties(this, [
-      'nodeIndex',
-      'tabNodes'
-    ]);
-    let tab = tabNodes[nodeIndex];
+    let tab = this.tabNodes[this.nodeIndex];
     return tab ? tab.id : null;
   }),
 
   selected: computed('nodeIndex', 'selectedIndex', function() {
-    let {
-      nodeIndex,
-      selectedIndex
-    } = getProperties(this, [
-      'nodeIndex',
-      'selectedIndex'
-    ]);
-    return nodeIndex === selectedIndex;
+    return this.nodeIndex === this.selectedIndex;
   }),
 
   _selectedClassName: computed('selected', 'selectedTabPanelClassName', 'selectedClassName', function() {
-    let {
-      selected,
-      selectedTabPanelClassName,
-      selectedClassName
-    } = getProperties(this, [
-      'selected',
-      'selectedTabPanelClassName',
-      'selectedClassName'
-    ]);
-    return selected ? (selectedClassName || selectedTabPanelClassName || `${DEFAULT_CLASS}--selected`) : '';
+    return this.selected ? (this.selectedClassName || this.selectedTabPanelClassName || `${DEFAULT_CLASS}--selected`) : '';
   }),
 
-  shouldYield: computed('selected', 'forceRender', function() {
-    let {
-      selected,
-      forceRender
-    } = getProperties(this, ['selected', 'forceRender']);
-    return selected || forceRender;
-  }),
+  shouldYield: or('selected', 'forceRender'),
 
   init() {
     this._super(...arguments);

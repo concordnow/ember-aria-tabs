@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { get, getProperties, set, setProperties } from '@ember/object';
+import { set, setProperties } from '@ember/object';
 import { isNone } from '@ember/utils';
 import layout from '../templates/components/aria-tabs';
 
@@ -135,14 +135,14 @@ export default Component.extend({
     setProperties(this, {
       tabNodes: [],
       panelNodes: [],
-      focus: get(this, 'defaultFocus')
+      focus: this.defaultFocus
     });
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
 
-    let mode = get(this, 'mode');
+    let mode = this.mode;
     let newMode = this.getMode();
 
     if (!isNone(mode) && mode !== newMode) {
@@ -156,27 +156,14 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
   },
 
   getMode() {
-    return get(this, 'selectedIndex') === null ? MODE_UNCONTROLLED : MODE_CONTROLLED;
+    return this.selectedIndex === null ? MODE_UNCONTROLLED : MODE_CONTROLLED;
   },
 
   didRender() {
     this._super(...arguments);
 
-    let {
-      element,
-      elementId,
-      defaultIndex,
-      mode,
-      selectedIndex
-    } = getProperties(this, [
-      'element',
-      'elementId',
-      'defaultIndex',
-      'mode',
-      'selectedIndex'
-    ]);
-    let tabNodes = Array.from(element.querySelectorAll(`[role="tab"][data-parent-guid="${elementId}"]`));
-    let panelNodes = Array.from(element.querySelectorAll(`[role="tabpanel"][data-parent-guid="${elementId}"]`));
+    let tabNodes = Array.from(this.element.querySelectorAll(`[role="tab"][data-parent-guid="${this.elementId}"]`));
+    let panelNodes = Array.from(this.element.querySelectorAll(`[role="tabpanel"][data-parent-guid="${this.elementId}"]`));
 
     // Avoid infinite loop
     if (!this.nodesEquals('tabNodes', tabNodes) && !this.nodesEquals('panelNodes', panelNodes)) {
@@ -186,21 +173,21 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
       });
     }
 
-    if (mode === MODE_UNCONTROLLED) {
+    if (this.mode === MODE_UNCONTROLLED) {
       const maxTabIndex = tabNodes.length - 1;
       let newSelectedIndex = null;
 
-      if (selectedIndex != null) {
-        newSelectedIndex = Math.min(selectedIndex, maxTabIndex);
+      if (this.selectedIndex != null) {
+        newSelectedIndex = Math.min(this.selectedIndex, maxTabIndex);
       } else {
-        newSelectedIndex = defaultIndex || 0;
+        newSelectedIndex = this.defaultIndex || 0;
       }
       set(this, 'selectedIndex', newSelectedIndex);
     }
   },
 
   nodesEquals(propName, nodeList) {
-    let previousNodes = get(this, propName);
+    let previousNodes = this[propName];
     if (previousNodes.length !== nodeList.length) {
       return false;
     }
@@ -211,22 +198,13 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
 
   setSelected(index, event) {
     // Check index boundary
-    if (index < 0 || index >= get(this, 'tabsNodes.length')) {
+    if (index < 0 || (this.tabsNodes && index >= this.tabsNodes.length)) {
       return;
     }
 
-    let {
-      onSelect,
-      selectedIndex: last,
-      mode
-    } = getProperties(this, [
-      'onSelect',
-      'selectedIndex',
-      'mode'
-    ]);
     // Call change event handler
-    if (typeof onSelect === 'function') {
-      if (onSelect(index, last, event) === false) {
+    if (typeof this.onSelect === 'function') {
+      if (this.onSelect(index, this.selectedIndex, event) === false) {
         // Check if the change event handler cancels the tab change
         return;
       }
@@ -234,13 +212,13 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
 
     set(this, 'focus', event.type === 'keydown');
 
-    if (mode === MODE_UNCONTROLLED) {
+    if (this.mode === MODE_UNCONTROLLED) {
       set(this, 'selectedIndex', index);
     }
   },
 
   getNextTab(index) {
-    let tabsNodes = get(this, 'tabNodes');
+    let tabsNodes = this.tabNodes;
     const count = tabsNodes.length;
 
     // Look for non-disabled tab from index to the last tab on the right
@@ -262,7 +240,7 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
   },
 
   getPrevTab(index) {
-    let tabsNodes = get(this, 'tabNodes');
+    let tabsNodes = this.tabNodes;
     let i = index;
 
     // Look for non-disabled tab from index to first tab on the left
@@ -285,7 +263,7 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
   },
 
   getFirstTab() {
-    let tabsNodes = get(this, 'tabNodes');
+    let tabsNodes = this.tabNodes;
     const count = tabsNodes.length;
 
     // Look for non disabled tab from the first tab
@@ -299,7 +277,7 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
   },
 
   getLastTab() {
-    let tabsNodes = get(this, 'tabNodes');
+    let tabsNodes = this.tabNodes;
     let i = tabsNodes.length;
 
     // Look for non disabled tab from the last tab
@@ -318,7 +296,7 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
 
   actions: {
     handleClick(index, e) {
-      let tabsNodes = get(this, 'tabNodes');
+      let tabsNodes = this.tabNodes;
       if (this.isTabDisabled(tabsNodes[index])) {
         return;
       }
