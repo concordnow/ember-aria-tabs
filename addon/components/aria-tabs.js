@@ -162,8 +162,8 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
   didRender() {
     this._super(...arguments);
 
-    let tabNodes = Array.from(this.element.querySelectorAll(`[role="tab"][data-parent-guid="${this.elementId}"]`));
-    let panelNodes = Array.from(this.element.querySelectorAll(`[role="tabpanel"][data-parent-guid="${this.elementId}"]`));
+    let tabNodes = (typeof FastBoot === "undefined") ? Array.from(this.element.querySelectorAll(`[role="tab"][data-parent-guid="${this.elementId}"]`)) : null;
+    let panelNodes = (typeof FastBoot === "undefined") ? Array.from(this.element.querySelectorAll(`[role="tabpanel"][data-parent-guid="${this.elementId}"]`)) : null;
 
     // Avoid infinite loop
     if (!this.nodesEquals('tabNodes', tabNodes) && !this.nodesEquals('panelNodes', panelNodes)) {
