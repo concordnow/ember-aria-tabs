@@ -88,7 +88,7 @@ export default Component.extend({
   }).readOnly(),
 
   nodeIndex: computed('element', 'tabNodes.[]', function() {
-    return this.tabNodes.indexOf(this.element);
+    return (typeof FastBoot === "undefined") ? this.tabNodes.indexOf(this.element) : null;
   }),
 
   panelId: computed('nodeIndex', 'panelNodes.[]', function() {
@@ -152,7 +152,7 @@ export default Component.extend({
   },
 
   checkFocus() {
-    if (this.selected && this.focus) {
+    if (this.selected && this.focus && (typeof FastBoot === "undefined")) {
       // We need to wait the selected rendering state
       next(() => {
         this.element.focus();
