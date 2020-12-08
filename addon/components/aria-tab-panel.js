@@ -60,7 +60,7 @@ export default Component.extend({
   }).readOnly(),
 
   nodeIndex: computed('element', 'panelNodes.[]', function() {
-    return typeof FastBoot === "undefined" ? this.panelNodes.indexOf(this.element) : null;
+    return (typeof FastBoot === "undefined") ? this.panelNodes.indexOf(this.element) : null;
   }),
 
   tabId: computed('nodeIndex', 'tabNodes.[]', function() {
