@@ -7,7 +7,7 @@
         type="checkbox"
         name={{char.name}}
         checked={{char.checked}}
-        onclick={{action (mut char.checked) value="target.checked"}}
+        {{on "click" (fn (mut char.checked) (not char.checked))}}
       >
       {{char.name}}&nbsp;
     </label>
