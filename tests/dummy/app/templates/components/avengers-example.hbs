@@ -1,5 +1,5 @@
 {{! template-lint-disable no-inline-styles style-concatenation no-action }}
-{{!-- BEGIN-SNIPPET avengers-example.hbs --}}
+{{! BEGIN-SNIPPET avengers-example.hbs }}
 <p>
   {{#each this.characters as |char|}}
     <label key={{char.name}}>
@@ -8,7 +8,7 @@
         name={{char.name}}
         checked={{char.checked}}
         {{on "click" (fn (mut char.checked) (not char.checked))}}
-      >
+      />
       {{char.name}}&nbsp;
     </label>
   {{/each}}
@@ -16,20 +16,23 @@
 
 <AriaTabs
   @selectedTabClassName="avengers-tab--selected"
-  @selectedTabPanelClassName="avengers-tab-panel--selected"
-  as |at|>
+  @selectedTabPanelClassName="avengers-tab-panel--selected" as |at|
+>
   <at.tabList class="avengers-tab-list" as |tl|>
     {{#each this.checkedCharacters as |char|}}
       <tl.tab style="background-color: {{char.color}}" class="avengers-tab">
-        <img src={{char.img}} alt={{char.name}} height="32" width="32">
+        <img src={{char.img}} alt={{char.name}} height="32" width="32" />
       </tl.tab>
     {{/each}}
   </at.tabList>
 
   {{#each this.checkedCharacters as |char|}}
-    <at.tabPanel style="background-color: {{char.color}}; color: {{char.text}}" class="avengers-tab-panel">
+    <at.tabPanel
+      style="background-color: {{char.color}}; color: {{char.text}}"
+      class="avengers-tab-panel"
+    >
       {{char.desc}}
     </at.tabPanel>
   {{/each}}
 </AriaTabs>
-{{!-- END-SNIPPET --}}
+{{! END-SNIPPET }}

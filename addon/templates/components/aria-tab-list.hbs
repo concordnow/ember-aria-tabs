@@ -1,15 +1,16 @@
 {{yield
-    (hash
-      tab=(component "aria-tab"
-        disabledTabClassName=@disabledTabClassName
-        focus=@focus
-        onClick=@onClick
-        onKeyDown=@onKeyDown
-        panelNodes=@panelNodes
-        parentGuid=@parentGuid
-        selectedTabClassName=@selectedTabClassName
-        selectedIndex=@selectedIndex
-        tabNodes=@tabNodes
-      )
+  (hash
+    tab=(component
+      "aria-tab"
+      disabledTabClassName=@disabledTabClassName
+      focus=@focus
+      onClick=@onClick
+      onKeyDown=@onKeyDown
+      panelNodes=@panelNodes
+      parentGuid=@parentGuid
+      selectedTabClassName=@selectedTabClassName
+      selectedIndex=@selectedIndex
+      tabNodes=@tabNodes
     )
+  )
 }}
