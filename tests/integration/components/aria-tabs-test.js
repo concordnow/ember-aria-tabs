@@ -80,7 +80,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
       let tabPanels = findAll('[role="tabpanel"]');
 
       assert.equal(selectedTab.length, 1);
-      assert.equal(selectedTab[0].textContent, 'Bar');
+      assert.equal(selectedTab[0].textContent.trim(), 'Bar');
       assert.equal(tabPanels[0].textContent.trim(), '');
       assert.equal(tabPanels[1].textContent.trim(), 'Hello Bar');
       assert.equal(tabPanels[2].textContent.trim(), '');

@@ -13,7 +13,10 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
   });
 
   test('it renders when selected', async function (assert) {
-    await render(hbs`<AriaTabPanel @selected={{true}}>Hola</AriaTabPanel>`);
+    this.set('panelIds', ['myId']);
+    await render(
+      hbs`<AriaTabPanel id="myId" @selectedIndex={{0}} @panelIds={{panelIds}}>Hola</AriaTabPanel>`
+    );
 
     assert.equal(this.element.textContent.trim(), 'Hola');
   });
@@ -32,12 +35,14 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
   });
 
   test('it supports being selected with custom class name', async function (assert) {
+    this.set('panelIds', ['abcd']);
     await render(hbs`
       <AriaTabPanel
         id="abcd"
-        @selected={{true}}
-        @tabId="1234"
+        @panelIds={{panelIds}}
         @selectedClassName="selected"
+        @selectedIndex={{0}}
+        @tabId="1234"
       >
         Hola
       </AriaTabPanel>
