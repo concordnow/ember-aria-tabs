@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, setupOnerror } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | aria-tab-list', function (hooks) {
@@ -28,14 +28,6 @@ module('Integration | Component | aria-tab-list', function (hooks) {
 
     let tabList = this.element.querySelector('[role="tablist"]');
     assert.equal(tabList.getAttribute('data-tooltip'), 'Tooltip contents');
-  });
-
-  test('it does not allow overriding all default properties', async function (assert) {
-    setupOnerror(function (err) {
-      assert.ok(err);
-    });
-
-    await render(hbs`<AriaTabList @role="micro-tab" />`);
   });
 
   test('it retains the default classnames for active and disabled tab', async function (assert) {

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, setupOnerror } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | aria-tab', function (hooks) {
@@ -60,14 +60,6 @@ module('Integration | Component | aria-tab', function (hooks) {
 
     let tab = this.element.querySelector('[role="tab"]');
     assert.equal(tab.getAttribute('data-tooltip'), 'Tooltip contents');
-  });
-
-  test('it does not allow overriding all default properties', async function (assert) {
-    setupOnerror(function (err) {
-      assert.ok(err);
-    });
-
-    await render(hbs`<AriaTab @role="micro-tab" />`);
   });
 
   test('it override the tabIndex if it was provided', async function (assert) {

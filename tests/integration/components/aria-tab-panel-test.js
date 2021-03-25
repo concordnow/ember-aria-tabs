@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, setupOnerror } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | aria-tab-panel', function (hooks) {
@@ -29,14 +29,6 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
 
     let tabPanel = this.element.querySelector('[role="tabpanel"]');
     assert.equal(tabPanel.classList.contains('foobar'), true);
-  });
-
-  test('it does not allow overriding all default properties', async function (assert) {
-    setupOnerror(function (err) {
-      assert.ok(err);
-    });
-
-    await render(hbs`<AriaTabPanel @role="micro-tab" />`);
   });
 
   test('it supports being selected with custom class name', async function (assert) {
