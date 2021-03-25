@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, setupOnerror } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | aria-tab-list', function(hooks) {
+module('Integration | Component | aria-tab-list', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders with sane default', async function(assert) {
+  test('it renders with sane default', async function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
@@ -16,31 +16,29 @@ module('Integration | Component | aria-tab-list', function(hooks) {
     assert.equal(tabList.textContent.trim(), '');
   });
 
-  test('it renders with class', async function(assert) {
-
+  test('it renders with class', async function (assert) {
     await render(hbs`<AriaTabList class="foobar" />`);
 
     let tabList = this.element.querySelector('[role="tablist"]');
     assert.equal(tabList.classList.contains('foobar'), true);
   });
 
-  test('it pass through custom properties', async function(assert) {
-
+  test('it pass through custom properties', async function (assert) {
     await render(hbs`<AriaTabList data-tooltip="Tooltip contents" />`);
 
     let tabList = this.element.querySelector('[role="tablist"]');
     assert.equal(tabList.getAttribute('data-tooltip'), 'Tooltip contents');
   });
 
-  test('it does not allow overriding all default properties', async function(assert) {
-    setupOnerror(function(err) {
+  test('it does not allow overriding all default properties', async function (assert) {
+    setupOnerror(function (err) {
       assert.ok(err);
     });
 
     await render(hbs`<AriaTabList @role="micro-tab" />`);
   });
 
-  test('it retains the default classnames for active and disabled tab', async function(assert) {
+  test('it retains the default classnames for active and disabled tab', async function (assert) {
     await render(hbs`
       <AriaTabs @defaultIndex={{0}} as |at|>
         <at.tabList as |tl|>
@@ -57,7 +55,7 @@ module('Integration | Component | aria-tab-list', function(hooks) {
     assert.equal(tabs[1].classList.contains('ember-tabs__tab--disabled'), true);
   });
 
-  test('it display the custom classnames for selected and disabled tab specified on tabs', async function(assert) {
+  test('it display the custom classnames for selected and disabled tab specified on tabs', async function (assert) {
     await render(hbs`
       <AriaTabs
         @defaultIndex={{0}}
@@ -78,7 +76,7 @@ module('Integration | Component | aria-tab-list', function(hooks) {
     assert.equal(tabs[1].classList.contains('disabled'), true);
   });
 
-  test('it display the custom classnames for selected and disabled tab', async function(assert) {
+  test('it display the custom classnames for selected and disabled tab', async function (assert) {
     await render(hbs`
       <AriaTabs @defaultIndex={{0}} as |at|>
         <at.tabList as |tl|>

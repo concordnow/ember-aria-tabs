@@ -1,6 +1,12 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { findAll, click, render, focus, triggerKeyEvent } from '@ember/test-helpers';
+import {
+  findAll,
+  click,
+  render,
+  focus,
+  triggerKeyEvent,
+} from '@ember/test-helpers';
 import { percySnapshot } from 'ember-percy';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -31,10 +37,10 @@ function assertTabSelected(assert, index) {
   assert.notEqual(panel.textContent, '');
 }
 
-module('Integration | Component | aria-tabs', function(hooks) {
+module('Integration | Component | aria-tabs', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders with sane default', async function(assert) {
+  test('it renders with sane default', async function (assert) {
     await createTabs();
 
     let tabList = findAll('[role="tablist"]');
@@ -52,9 +58,8 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(tabPanels[2].textContent.trim(), '');
     assert.equal(tabPanels[3].textContent.trim(), '');
   }),
-
-  test('it renders with positive defaultIndex prop', async function(assert) {
-    await render(hbs`
+    test('it renders with positive defaultIndex prop', async function (assert) {
+      await render(hbs`
       <AriaTabs @defaultIndex={{1}} as |at|>
         <at.tabList as |tl|>
           <tl.tab>Foo</tl.tab>
@@ -71,18 +76,18 @@ module('Integration | Component | aria-tabs', function(hooks) {
       </AriaTabs>
     `);
 
-    let selectedTab = findAll('[role="tab"][aria-selected="true"]');
-    let tabPanels = findAll('[role="tabpanel"]');
+      let selectedTab = findAll('[role="tab"][aria-selected="true"]');
+      let tabPanels = findAll('[role="tabpanel"]');
 
-    assert.equal(selectedTab.length, 1);
-    assert.equal(selectedTab[0].textContent, 'Bar');
-    assert.equal(tabPanels[0].textContent.trim(), '');
-    assert.equal(tabPanels[1].textContent.trim(), 'Hello Bar');
-    assert.equal(tabPanels[2].textContent.trim(), '');
-    assert.equal(tabPanels[3].textContent.trim(), '');
-  });
+      assert.equal(selectedTab.length, 1);
+      assert.equal(selectedTab[0].textContent, 'Bar');
+      assert.equal(tabPanels[0].textContent.trim(), '');
+      assert.equal(tabPanels[1].textContent.trim(), 'Hello Bar');
+      assert.equal(tabPanels[2].textContent.trim(), '');
+      assert.equal(tabPanels[3].textContent.trim(), '');
+    });
 
-  test('it renders with negative defaultIndex prop', async function(assert) {
+  test('it renders with negative defaultIndex prop', async function (assert) {
     await render(hbs`
       <AriaTabs @defaultIndex={{-1}} as |at|>
         <at.tabList as |tl|>
@@ -111,7 +116,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(tabPanels[3].textContent.trim(), '');
   });
 
-  test('it calls onSelect when selection changes', async function(assert) {
+  test('it calls onSelect when selection changes', async function (assert) {
     let called = { index: -1, last: -1 };
     this.set('onSelect', (index, last) => {
       called.index = index;
@@ -141,7 +146,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(called.last, 0);
   });
 
-  test('it renders with class names', async function(assert) {
+  test('it renders with class names', async function (assert) {
     await render(hbs`
       <AriaTabs class="foobar" as |at|>
         <at.tabList as |tl|>
@@ -159,11 +164,13 @@ module('Integration | Component | aria-tabs', function(hooks) {
       </AriaTabs>
     `);
 
-    assert.equal(this.element.querySelector('.ember-tabs').classList.contains('foobar'), true);
+    assert.equal(
+      this.element.querySelector('.ember-tabs').classList.contains('foobar'),
+      true
+    );
   });
 
-
-  test('it updates selectedIndex when clicked', async function(assert) {
+  test('it updates selectedIndex when clicked', async function (assert) {
     await createTabs();
 
     await click(findAll('[role="tab"]')[1]);
@@ -171,7 +178,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assertTabSelected(assert, 1);
   });
 
-  test('it updates selectedIndex when tab child is clicked', async function(assert) {
+  test('it updates selectedIndex when tab child is clicked', async function (assert) {
     await render(hbs`
       <AriaTabs as |at|>
         <at.tabList as |tl|>
@@ -194,7 +201,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assertTabSelected(assert, 2);
   });
 
-  test('it yield selected state', async function(assert) {
+  test('it yield selected state', async function (assert) {
     await render(hbs`
       <AriaTabs @forceRenderTabPanel={{true}} as |at|>
         <at.tabList as |tl|>
@@ -236,7 +243,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(panels[3].textContent.trim(), 'Hello Qux false');
   });
 
-  test('it does not change selectedIndex when clicking a disabled tab', async function(assert) {
+  test('it does not change selectedIndex when clicking a disabled tab', async function (assert) {
     await createTabs();
 
     await click(findAll('[role="tab"]')[3]);
@@ -244,7 +251,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assertTabSelected(assert, 0);
   });
 
-  test('it updates selectedIndex when arrow right key pressed', async function(assert) {
+  test('it updates selectedIndex when arrow right key pressed', async function (assert) {
     await createTabs();
 
     let target = findAll('[role="tab"]')[1];
@@ -256,7 +263,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assertTabSelected(assert, 2);
   });
 
-  test('it does not not change selectedIndex when arrow left key pressed on a disabled tab', async function(assert) {
+  test('it does not not change selectedIndex when arrow left key pressed on a disabled tab', async function (assert) {
     await createTabs();
 
     let target = findAll('[role="tab"]')[0];
@@ -268,7 +275,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assertTabSelected(assert, 2);
   });
 
-  test('it only renders the selected tab', async function(assert) {
+  test('it only renders the selected tab', async function (assert) {
     await createTabs();
 
     let tabPanels = findAll('[role="tabpanel"]');
@@ -289,7 +296,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(tabPanels[2].textContent.trim(), 'Hello Baz');
   });
 
-  test('it renders all tabs if forceRenderTabPanel is true', async function(assert) {
+  test('it renders all tabs if forceRenderTabPanel is true', async function (assert) {
     await render(hbs`
       <AriaTabs @forceRenderTabPanel={{true}} as |at|>
         <at.tabList as |tl|>
@@ -314,7 +321,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(tabPanels[3].textContent.trim(), 'Hello Qux');
   });
 
-  test('it renders all tabs if forceRenderTabPanel is true', async function(assert) {
+  test('it renders all tabs if forceRenderTabPanel is true', async function (assert) {
     await render(hbs`
       <AriaTabs @forceRenderTabPanel={{true}} as |at|>
         <at.tabList as |tl|>
@@ -339,12 +346,12 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(tabPanels[3].textContent.trim(), 'Hello Qux');
   });
 
-  test('it renders without children', async function(assert) {
+  test('it renders without children', async function (assert) {
     await render(hbs`<AriaTabs />`);
     assert.equal(this.element.textContent.trim(), '');
   });
 
-  test('it renders with just tabList', async function(assert) {
+  test('it renders with just tabList', async function (assert) {
     await render(hbs`
       <AriaTabs as |at|>
         <at.tabList />
@@ -353,7 +360,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(this.element.textContent.trim(), '');
   });
 
-  test('it renders conditionally', async function(assert) {
+  test('it renders conditionally', async function (assert) {
     await render(hbs`
       <AriaTabs as |at|>
         <at.tabList as |tl|>
@@ -375,7 +382,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(tabPanels.length, 1);
   });
 
-  test('it supports nested tabs', async function(assert) {
+  test('it supports nested tabs', async function (assert) {
     await render(hbs`
       <AriaTabs class="first" as |at|>
         <at.tabList as |tl|>
@@ -405,7 +412,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(tab2.getAttribute('aria-selected'), 'true');
   });
 
-  test('it allows other DOM nodes', async function(assert) {
+  test('it allows other DOM nodes', async function (assert) {
     await render(hbs`
       <AriaTabs as |at|>
         <div id="tabs-nav-wrapper">
@@ -438,7 +445,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(tabPanels.length, 2);
   });
 
-  test('it cancels if event handler returns false', async function(assert) {
+  test('it cancels if event handler returns false', async function (assert) {
     this.set('onSelect', () => false);
 
     await render(hbs`
@@ -469,7 +476,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assertTabSelected(assert, 0);
   });
 
-  test('it trigger onSelect handler when clicking', async function(assert) {
+  test('it trigger onSelect handler when clicking', async function (assert) {
     let wasClicked = false;
     this.set('onSelect', () => {
       wasClicked = true;
@@ -501,7 +508,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(wasClicked, true);
   });
 
-  test('it trigger onSelect handler when clicking on open tab', async function(assert) {
+  test('it trigger onSelect handler when clicking on open tab', async function (assert) {
     let wasClicked = false;
     this.set('onSelect', () => {
       wasClicked = true;
@@ -533,7 +540,7 @@ module('Integration | Component | aria-tabs', function(hooks) {
     assert.equal(wasClicked, true);
   });
 
-  test('it handles complex layout', async function(assert) {
+  test('it handles complex layout', async function (assert) {
     await render(hbs`
       <AriaTabs @forceRenderTabPanel={{true}} @defaultIndex={{1}} as |at|>
         <at.tabList as |tl|>
