@@ -1,0 +1,34 @@
+<div
+  class={{this.className}}
+  ...attributes
+  {{did-insert this.didUpsert this.tabIds this.panelIds}}
+  {{did-update this.didUpsert this.tabIds this.panelIds}}
+>
+  {{yield
+    (hash
+      tabList=(component
+        "aria-tab-list"
+        didInsertNode=this.didInsertTab
+        disabledTabClassName=this.disabledTabClassName
+        focus=this.focus
+        onClick=this.handleClick
+        onKeyDown=this.handleKeyDown
+        panelIds=this.panelIds
+        selectedIndex=this.selectedIndex
+        selectedTabClassName=this.selectedTabClassName
+        tabIds=this.tabIds
+        willDestroyNode=this.willDestroyTab
+      )
+      tabPanel=(component
+        "aria-tab-panel"
+        didInsertNode=this.didInsertPanel
+        forceRender=@forceRenderTabPanel
+        panelIds=this.panelIds
+        selectedIndex=this.selectedIndex
+        selectedTabPanelClassName=this.selectedTabPanelClassName
+        tabIds=this.tabIds
+        willDestroyNode=this.willDestroyPanel
+      )
+    )
+  }}
+</div>

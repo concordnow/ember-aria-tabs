@@ -1,4 +1,4 @@
-{{! template-lint-disable no-inline-styles style-concatenation no-action }}
+{{! template-lint-disable no-inline-styles style-concatenation }}
 {{! BEGIN-SNIPPET avengers-example.hbs }}
 <p>
   {{#each this.characters as |char|}}
@@ -19,10 +19,12 @@
   @selectedTabPanelClassName="avengers-tab-panel--selected" as |at|
 >
   <at.tabList class="avengers-tab-list" as |tl|>
-    {{#each this.checkedCharacters as |char|}}
-      <tl.tab style="background-color: {{char.color}}" class="avengers-tab">
-        <img src={{char.img}} alt={{char.name}} height="32" width="32" />
-      </tl.tab>
+    {{#each this.characters as |char|}}
+      {{#if this.characters.checked}}
+        <tl.tab style="background-color: {{char.color}}" class="avengers-tab">
+          <img src={{char.img}} alt={{char.name}} height="32" width="32" />
+        </tl.tab>
+      {{/if}}
     {{/each}}
   </at.tabList>
 

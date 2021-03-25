@@ -30,11 +30,13 @@
     "test:ember-compatibility": "ember try:each"
   },
   "dependencies": {
+    "ember-cached-decorator-polyfill": "^0.1.1",
     "ember-cli-babel": "^7.23.0",
     "ember-cli-htmlbars": "^5.3.1"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
+    "@ember/render-modifiers": "^1.0.2",
     "@ember/test-helpers": "^2.1.4",
     "@embroider/test-setup": "^0.37.0",
     "@glimmer/component": "^1.0.3",

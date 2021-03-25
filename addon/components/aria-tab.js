@@ -1,7 +1,9 @@
-import Component from '@ember/component';
-import { computed, setProperties } from '@ember/object';
+import Component from '@glimmer/component';
+import { cached, tracked } from '@glimmer/tracking';
+import { A } from '@ember/array';
+import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 import { next } from '@ember/runloop';
-import layout from '../templates/components/aria-tab';
 
 const DEFAULT_CLASS = 'ember-tabs__tab';
 
@@ -15,24 +17,7 @@ const DEFAULT_CLASS = 'ember-tabs__tab';
  * @class AriaTab
  * @public
  */
-export default Component.extend({
-  layout,
-  tagName: 'li',
-  classNames: [DEFAULT_CLASS],
-  classNameBindings: [
-    '_selectedClassName',
-    '_disabledClassName'
-  ],
-  attributeBindings: [
-    '_selected:aria-selected',
-    '_disabled:aria-disabled',
-    'disabled',
-    'panelId:aria-controls',
-    '_tabIndex:tabindex',
-    'parentGuid:data-parent-guid',
-    'role'
-  ],
-
+export default class AriaTabComponent extends Component {
   /**
    * Defaults to `false`.
    *
@@ -42,7 +27,6 @@ export default Component.extend({
    * @type Boolean
    * @default false
    */
-  disabled: false,
 
   /**
    * Defaults to `"ember-tabs__tab--disabled"`.
@@ -55,7 +39,14 @@ export default Component.extend({
    * @type String
    * @default "ember-tabs__tab--disabled"
    */
-  disabledClassName: null,
+  @cached
+  get disabledClassName() {
+    return (
+      this.args.disabledClassName ??
+      this.args.disabledTabClassName ??
+      `${DEFAULT_CLASS}--disabled`
+    );
+  }
 
   /**
    * Defaults to `"ember-tabs__tab--selected"`.
@@ -66,9 +57,14 @@ export default Component.extend({
    * @type String
    * @default "ember-tabs__tab--selected"
    */
-  selectedClassName: null,
-
-  focus: false,
+  @cached
+  get selectedClassName() {
+    return (
+      this.args.selectedClassName ??
+      this.args.selectedTabClassName ??
+      `${DEFAULT_CLASS}--selected`
+    );
+  }
 
   /**
    * > default: if selected `"0"` otherwise `null`
@@ -79,84 +75,77 @@ export default Component.extend({
    * @type String
    * @default "0"|null
    **/
-  tabIndex: null,
 
-  role: computed({
-    get() {
-      return 'tab';
+  @tracked
+  elementId = guidFor(this);
+
+  @cached
+  get classNames() {
+    let classNames = [DEFAULT_CLASS];
+    if (this.selected) {
+      classNames.push(this.selectedClassName);
     }
-  }).readOnly(),
-
-  nodeIndex: computed('element', 'tabNodes.[]', function() {
-    return this.tabNodes.indexOf(this.element);
-  }),
-
-  panelId: computed('nodeIndex', 'panelNodes.[]', function() {
-    let panel = this.panelNodes[this.nodeIndex];
-    return panel? panel.id : null;
-  }),
-
-  selected: computed('nodeIndex', 'selectedIndex', function() {
-    return this.nodeIndex === this.selectedIndex;
-  }),
-
-  _selected: computed('selected', function() {
-    return this.selected ? 'true' : 'false';
-  }),
-
-  _selectedClassName: computed('selected', 'selectedTabClassName', 'selectedClassName', function() {
-    return this.selected ? (this.selectedClassName || this.selectedTabClassName || `${DEFAULT_CLASS}--selected`) : '';
-  }),
-
-  _disabled: computed('disabled', function() {
-    return this.disabled ? 'true' : 'false';
-  }),
-
-  _disabledClassName: computed('disabled', 'disabledTabClassName', 'disabledClassName', function() {
-    return this.disabled ? (this.disabledClassName || this.disabledTabClassName || `${DEFAULT_CLASS}--disabled`) : '';
-  }),
-
-  _tabIndex: computed('tabIndex', 'selected', function() {
-    return this.tabIndex || (this.selected ? '0' : null);
-  }),
-
-  init() {
-    this._super(...arguments);
-    // Set defaults
-    setProperties(this, {
-      tabNodes: [],
-      panelNodes: []
-    });
-  },
-
-  didInsertElement() {
-    this._super(...arguments);
-    this.checkFocus();
-  },
-
-  didUpdateAttrs() {
-    this._super(...arguments);
-    this.checkFocus();
-  },
-
-  click(e) {
-    if (this.onClick) {
-      this.onClick(this.nodeIndex, e);
+    if (this.args.disabled) {
+      classNames.push(this.disabledClassName);
     }
-  },
+    return classNames.join(' ');
+  }
 
-  keyDown(e) {
-    if (this.onKeyDown) {
-      this.onKeyDown(this.nodeIndex, e);
-    }
-  },
+  @cached
+  get nodeIndex() {
+    return A(this.args.tabIds).indexOf(this.elementId);
+  }
 
+  @cached
+  get panelId() {
+    return A(this.args.panelIds)[this.nodeIndex];
+  }
+
+  @cached
+  get selected() {
+    return this.nodeIndex === this.args.selectedIndex;
+  }
+
+  get tabIndex() {
+    return this.args.tabIndex ?? (this.selected ? '0' : undefined);
+  }
+
+  @action
   checkFocus() {
-    if (this.selected && this.focus) {
+    if (this.selected && this.args.focus) {
       // We need to wait the selected rendering state
       next(() => {
         this.element.focus();
       });
     }
   }
-});
+
+  @action
+  didInsertNode(element) {
+    this.elementId = element.id;
+    if (typeof this.args.didInsertNode === 'function') {
+      this.args.didInsertNode(this.elementId, ...arguments);
+    }
+  }
+
+  @action
+  willDestroyNode() {
+    if (typeof this.args.willDestroyNode === 'function') {
+      this.args.willDestroyNode(this.elementId, ...arguments);
+    }
+  }
+
+  @action
+  onClick() {
+    if (typeof this.args.onClick === 'function') {
+      this.args.onClick(this.nodeIndex, ...arguments);
+    }
+  }
+
+  @action
+  onKeyDown() {
+    if (typeof this.args.onKeyDown === 'function') {
+      this.args.onKeyDown(this.nodeIndex, ...arguments);
+    }
+  }
+}

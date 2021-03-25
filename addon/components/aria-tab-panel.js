@@ -1,7 +1,8 @@
-import Component from '@ember/component';
-import { computed, setProperties } from '@ember/object';
-import { or } from '@ember/object/computed';
-import layout from '../templates/components/aria-tab-panel';
+import Component from '@glimmer/component';
+import { cached, tracked } from '@glimmer/tracking';
+import { A } from '@ember/array';
+import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 
 const DEFAULT_CLASS = 'ember-tabs__tab-panel';
 
@@ -15,17 +16,26 @@ const DEFAULT_CLASS = 'ember-tabs__tab-panel';
  * @class AriaTabPanel
  * @public
  */
-export default Component.extend({
-  layout,
-  classNames: [DEFAULT_CLASS],
-  classNameBindings: [
-    '_selectedClassName',
-  ],
-  attributeBindings: [
-    'tabId:aria-labelledby',
-    'parentGuid:data-parent-guid',
-    'role'
-  ],
+export default class AriaTabPanelComponent extends Component {
+  /**
+   * Defaults to `"ember-tabs__tab-panel--selected"`.
+   *
+   * Provide a custom class name for the active tab panel.
+   *
+   * > This option can also be set for all `<AriaTabPanel />` components with the prop `selectedTabPanelClassName` on `<AriaTabs />`.
+   *
+   * @argument selectedClassName
+   * @type String
+   * @default "ember-tabs__tab-panel--selected"
+   */
+  @cached
+  get selectedClassName() {
+    return (
+      this.args.selectedClassName ??
+      this.args.selectedTabPanelClassName ??
+      `${DEFAULT_CLASS}--selected`
+    );
+  }
 
   /**
    * Defaults to `false`.
@@ -38,52 +48,51 @@ export default Component.extend({
    * @type Boolean
    * @default false
    */
-  forceRender: false,
 
-  /**
-   * Defaults to `"ember-tabs__tab-panel--selected"`.
-   *
-   * Provide a custom class name for the active tab panel.
-   *
-   * > This option can also be set for all `<AriaTabPanel />` components with the prop `selectedTabPanelClassName` on `<AriaTabs />`.
-   *
-   * @argument selectedClassName
-   * @type String
-   * @default "ember-tabs__tab-panel--selected"
-   */
-  selectedClassName: null,
-
-  role: computed({
-    get() {
-      return 'tabpanel';
-    }
-  }).readOnly(),
-
-  nodeIndex: computed('element', 'panelNodes.[]', function() {
-    return this.panelNodes.indexOf(this.element);
-  }),
-
-  tabId: computed('nodeIndex', 'tabNodes.[]', function() {
-    let tab = this.tabNodes[this.nodeIndex];
-    return tab ? tab.id : null;
-  }),
-
-  selected: computed('nodeIndex', 'selectedIndex', function() {
-    return this.nodeIndex === this.selectedIndex;
-  }),
-
-  _selectedClassName: computed('selected', 'selectedTabPanelClassName', 'selectedClassName', function() {
-    return this.selected ? (this.selectedClassName || this.selectedTabPanelClassName || `${DEFAULT_CLASS}--selected`) : '';
-  }),
-
-  shouldYield: or('selected', 'forceRender'),
-
-  init() {
-    this._super(...arguments);
-    // Set defaults
-    setProperties(this, {
-      tabNodes: [],
-      panelNodes: []
-    });
+  get shouldYield() {
+    return this.selected || this.args.forceRender;
   }
-});
+
+  @tracked
+  elementId = guidFor(this);
+
+  @cached
+  get nodeIndex() {
+    return A(this.args.panelIds).indexOf(this.elementId);
+  }
+
+  @cached
+  get tabId() {
+    return A(this.args.tabIds)[this.nodeIndex];
+  }
+
+  @cached
+  get selected() {
+    return this.nodeIndex === this.args.selectedIndex;
+  }
+
+  @cached
+  get classNames() {
+    let classNames = [DEFAULT_CLASS];
+
+    if (this.selected) {
+      classNames.push(this.selectedClassName);
+    }
+    return classNames.join(' ');
+  }
+
+  @action
+  didInsertNode(element) {
+    this.elementId = element.id;
+    if (typeof this.args.didInsertNode === 'function') {
+      this.args.didInsertNode(this.elementId, ...arguments);
+    }
+  }
+
+  @action
+  willDestroyNode() {
+    if (typeof this.args.willDestroyNode === 'function') {
+      this.args.willDestroyNode(this.elementId, ...arguments);
+    }
+  }
+}

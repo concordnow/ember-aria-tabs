@@ -1,7 +1,9 @@
-import Component from '@ember/component';
-import { set, setProperties } from '@ember/object';
+import Component from '@glimmer/component';
+import { cached } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { A } from '@ember/array';
+import { tracked } from '@glimmer/tracking';
 import { isNone } from '@ember/utils';
-import layout from '../templates/components/aria-tabs';
 
 const MODE_CONTROLLED = 0;
 const MODE_UNCONTROLLED = 1;
@@ -18,9 +20,14 @@ const DEFAULT_CLASS = 'ember-tabs';
  * @class AriaTabs
  * @public
  */
-export default Component.extend({
-  layout,
-  classNames: [`${DEFAULT_CLASS}`],
+export default class AriaTabsComponent extends Component {
+  className = DEFAULT_CLASS;
+  @tracked tabNodes = A([]);
+  @tracked tabIds = A([]);
+  @tracked panelNodes = A([]);
+  @tracked panelIds = A([]);
+  @tracked previousMode = null;
+  @tracked selectedIndex = null;
 
   /**
    * Defaults to `false`.
@@ -30,9 +37,8 @@ export default Component.extend({
    *
    * @argument defaultFocus
    * @type Boolean
-   * @default true
+   * @default false
    */
-  defaultFocus: false,
 
   /**
    * Defaults to `0`.
@@ -47,7 +53,6 @@ export default Component.extend({
    * @type Number
    * @default 0
    */
-  defaultIndex: 0,
 
   /**
    * Defaults to `null`.
@@ -66,7 +71,6 @@ export default Component.extend({
    * @type Function
    * @default null
    */
-  onSelect: null,
 
   /**
    * Defaults to `null`.
@@ -80,7 +84,6 @@ export default Component.extend({
    * @type Number
    * @default null
    */
-  selectedIndex: null,
 
   /**
    * Defaults to `"ember-tabs__tab--selected"`.
@@ -91,7 +94,9 @@ export default Component.extend({
    * @type String
    * @default "ember-tabs__tab--selected"
    */
-  selectedTabClassName: `${DEFAULT_CLASS}__tab--selected`,
+  get selectedTabClassName() {
+    return this.args.selectedTabClassName ?? `${DEFAULT_CLASS}__tab--selected`;
+  }
 
   /**
    * Defaults to `"ember-tabs__tab-panel--selected"`.
@@ -102,18 +107,26 @@ export default Component.extend({
    * @type String
    * @default "ember-tabs__tab-panel--selected"
    */
-  selectedTabPanelClassName: `${DEFAULT_CLASS}__tab-panel--selected`,
+  get selectedTabPanelClassName() {
+    return (
+      this.args.selectedTabPanelClassName ??
+      `${DEFAULT_CLASS}__tab-panel--selected`
+    );
+  }
 
   /**
-    * Defaults to `"ember-tabs__tab--disabled"`.
-    *
-    * Provide a custom class name for disabled tabs.
-    *
-    * @argument disabledTabClassName
-    * @type String
-    * @default "ember-tabs__tab--disabled"
-    */
-  disabledTabClassName: `${DEFAULT_CLASS}__tab--disabled`,
+   * Defaults to `"ember-tabs__tab--disabled"`.
+   *
+   * Provide a custom class name for disabled tabs.
+   *
+   * @argument disabledTabClassName
+   * @type String
+   * @default "ember-tabs__tab--disabled"
+   */
+
+  get disabledTabClassName() {
+    return this.args.disabledTabClassName ?? `${DEFAULT_CLASS}__tab--disabled`;
+  }
 
   /**
    * Defaults to `false`.
@@ -127,224 +140,211 @@ export default Component.extend({
    * @type Boolean
    * @default false
    */
-  forceRenderTabPanel: false,
 
-  init() {
-    this._super(...arguments);
+  get isModeControlled() {
+    return this.mode === MODE_CONTROLLED;
+  }
 
-    setProperties(this, {
-      tabNodes: [],
-      panelNodes: [],
-      focus: this.defaultFocus
-    });
-  },
+  @cached
+  get mode() {
+    return isNone(this.args.selectedIndex)
+      ? MODE_UNCONTROLLED
+      : MODE_CONTROLLED;
+  }
 
-  didReceiveAttrs() {
-    this._super(...arguments);
+  @action
+  didInsertPanel(elementId, element) {
+    this.panelNodes = A([...this.panelNodes, element]);
+    this.panelIds = A([...this.panelIds, elementId]);
+  }
 
-    let mode = this.mode;
-    let newMode = this.getMode();
+  @action
+  willDestroyPanel(elementId, element) {
+    this.panelNodes = A(this.panelNodes.without(element));
+    this.panelIds = A(this.panelIds.without(elementId));
+  }
 
-    if (!isNone(mode) && mode !== newMode) {
+  @action
+  didInsertTab(elementId, element) {
+    this.tabNodes = A([...this.tabNodes, element]);
+    this.tabIds = A([...this.tabIds, elementId]);
+  }
+
+  @action
+  willDestroyTab(elementId, element) {
+    this.tabNodes = A(this.tabNodes.without(element));
+    this.tabIds = A(this.tabIds.without(elementId));
+  }
+
+  @action
+  didUpsert() {
+    if (!isNone(this.previousMode) && this.previousMode !== this.mode) {
       throw new Error(
         `Switching between controlled mode (by using \`selectedIndex\`) and uncontrolled mode is not supported in \`AriaTabs\`.
-For more information about controlled and uncontrolled mode of ember-aria-tabs see the README.`,
+For more information about controlled and uncontrolled mode of ember-aria-tabs see the README.`
       );
     }
-
-    set(this, 'mode', newMode);
-  },
-
-  getMode() {
-    return this.selectedIndex === null ? MODE_UNCONTROLLED : MODE_CONTROLLED;
-  },
-
-  didRender() {
-    this._super(...arguments);
-
-    let tabNodes = Array.from(this.element.querySelectorAll(`[role="tab"][data-parent-guid="${this.elementId}"]`));
-    let panelNodes = Array.from(this.element.querySelectorAll(`[role="tabpanel"][data-parent-guid="${this.elementId}"]`));
-
-    // Avoid infinite loop
-    if (!this.nodesEquals('tabNodes', tabNodes) && !this.nodesEquals('panelNodes', panelNodes)) {
-      setProperties(this, {
-        tabNodes,
-        panelNodes
-      });
-    }
-
     if (this.mode === MODE_UNCONTROLLED) {
-      const maxTabIndex = tabNodes.length - 1;
+      const maxTabIndex = this.tabNodes.length - 1;
       let newSelectedIndex = null;
 
       if (this.selectedIndex != null) {
         newSelectedIndex = Math.min(this.selectedIndex, maxTabIndex);
       } else {
-        newSelectedIndex = this.defaultIndex || 0;
+        newSelectedIndex = this.args.defaultIndex || 0;
       }
-      set(this, 'selectedIndex', newSelectedIndex);
+      this.selectedIndex = newSelectedIndex;
+    } else {
+      this.selectedIndex = this.args.selectedIndex;
     }
-  },
 
-  nodesEquals(propName, nodeList) {
-    let previousNodes = this[propName];
-    if (previousNodes.length !== nodeList.length) {
-      return false;
-    }
-    let nodeIds = nodeList.map((node) => node.id);
-    let previousNodeIds = previousNodes.map((node) => node.id);
-    return previousNodeIds.every((prevNodeId) => nodeIds.includes(prevNodeId));
-  },
+    this.previousMode = this.mode;
+  }
 
   setSelected(index, event) {
     // Check index boundary
-    if (index < 0 || (this.tabsNodes && index >= this.tabsNodes.length)) {
+    if (index < 0 || (this.tabNodes && index >= this.tabNodes.length)) {
       return;
     }
 
     // Call change event handler
-    if (typeof this.onSelect === 'function') {
-      if (this.onSelect(index, this.selectedIndex, event) === false) {
+    if (typeof this.args.onSelect === 'function') {
+      if (this.args.onSelect(index, this.selectedIndex, event) === false) {
         // Check if the change event handler cancels the tab change
         return;
       }
     }
 
-    set(this, 'focus', event.type === 'keydown');
+    this.focus = event.type === 'keydown';
 
     if (this.mode === MODE_UNCONTROLLED) {
-      set(this, 'selectedIndex', index);
+      this.selectedIndex = index;
     }
-  },
+  }
 
   getNextTab(index) {
-    let tabsNodes = this.tabNodes;
-    const count = tabsNodes.length;
+    const count = this.tabNodes.length;
 
     // Look for non-disabled tab from index to the last tab on the right
     for (let i = index + 1; i < count; i++) {
-      if (!this.isTabDisabled(tabsNodes[i])) {
+      if (!this.isTabDisabled(this.tabNodes[i])) {
         return i;
       }
     }
 
     // If no tab found, continue searching from first on left to index
     for (let i = 0; i < index; i++) {
-      if (!this.isTabDisabled(tabsNodes[i])) {
+      if (!this.isTabDisabled(this.tabNodes[i])) {
         return i;
       }
     }
 
     // No tabs are disabled, return index
     return index;
-  },
+  }
 
   getPrevTab(index) {
-    let tabsNodes = this.tabNodes;
     let i = index;
 
     // Look for non-disabled tab from index to first tab on the left
     while (i--) {
-      if (!this.isTabDisabled(tabsNodes[i])) {
+      if (!this.isTabDisabled(this.tabNodes[i])) {
         return i;
       }
     }
 
     // If no tab found, continue searching from last tab on right to index
-    i = tabsNodes.length;
+    i = this.tabNodes.length;
     while (i-- > index) {
-      if (!this.isTabDisabled(tabsNodes[i])) {
+      if (!this.isTabDisabled(this.tabNodes[i])) {
         return i;
       }
     }
 
     // No tabs are disabled, return index
     return index;
-  },
+  }
 
   getFirstTab() {
-    let tabsNodes = this.tabNodes;
-    const count = tabsNodes.length;
+    const count = this.tabNodes.length;
 
     // Look for non disabled tab from the first tab
     for (let i = 0; i < count; i++) {
-      if (!this.isTabDisabled(tabsNodes[i])) {
+      if (!this.isTabDisabled(this.tabNodes[i])) {
         return i;
       }
     }
 
     return null;
-  },
+  }
 
   getLastTab() {
-    let tabsNodes = this.tabNodes;
-    let i = tabsNodes.length;
+    let i = this.tabNodes.length;
 
     // Look for non disabled tab from the last tab
     while (i--) {
-      if (!this.isTabDisabled(tabsNodes[i])) {
+      if (!this.isTabDisabled(this.tabNodes[i])) {
         return i;
       }
     }
 
     return null;
-  },
+  }
 
   isTabDisabled(tabNode) {
     return tabNode.getAttribute('aria-disabled') === 'true';
-  },
+  }
 
-  actions: {
-    handleClick(index, e) {
-      let tabsNodes = this.tabNodes;
-      if (this.isTabDisabled(tabsNodes[index])) {
-        return;
-      }
+  @action
+  handleClick(index, e) {
+    if (this.isTabDisabled(this.tabNodes[index])) {
+      return;
+    }
+    this.setSelected(index, e);
+  }
+
+  @action
+  handleKeyDown(index, e) {
+    let preventDefault = false;
+    let useSelectedIndex = false;
+
+    if (e.keyCode === 32 || e.keyCode === 13) {
+      preventDefault = true;
+      useSelectedIndex = false;
       this.setSelected(index, e);
-    },
+    }
 
-    handleKeyDown(index, e) {
-      let preventDefault = false;
-      let useSelectedIndex = false;
+    if (e.keyCode === 37 || e.keyCode === 38) {
+      // Select next tab to the left
+      index = this.getPrevTab(index);
+      preventDefault = true;
+      useSelectedIndex = true;
+    } else if (e.keyCode === 39 || e.keyCode === 40) {
+      // Select next tab to the right
+      index = this.getNextTab(index);
+      preventDefault = true;
+      useSelectedIndex = true;
+    } else if (e.keyCode === 35) {
+      // Select last tab (End key)
+      index = this.getLastTab();
+      preventDefault = true;
+      useSelectedIndex = true;
+    } else if (e.keyCode === 36) {
+      // Select first tab (Home key)
+      index = this.getFirstTab();
+      preventDefault = true;
+      useSelectedIndex = true;
+    }
 
-      if (e.keyCode === 32 || e.keyCode === 13) {
-        preventDefault = true;
-        useSelectedIndex = false;
-        this.setSelected(index, e);
-      }
+    // This prevents scrollbars from moving around
+    if (preventDefault) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
-      if (e.keyCode === 37 || e.keyCode === 38) {
-        // Select next tab to the left
-        index = this.getPrevTab(index);
-        preventDefault = true;
-        useSelectedIndex = true;
-      } else if (e.keyCode === 39 || e.keyCode === 40) {
-        // Select next tab to the right
-        index = this.getNextTab(index);
-        preventDefault = true;
-        useSelectedIndex = true;
-      } else if (e.keyCode === 35) {
-        // Select last tab (End key)
-        index = this.getLastTab();
-        preventDefault = true;
-        useSelectedIndex = true;
-      } else if (e.keyCode === 36) {
-        // Select first tab (Home key)
-        index = this.getFirstTab();
-        preventDefault = true;
-        useSelectedIndex = true;
-      }
-
-      // This prevents scrollbars from moving around
-      if (preventDefault) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-
-      // Only use the selected index in the state if we're not using the tabbed index
-      if (useSelectedIndex) {
-        this.setSelected(index, e);
-      }
+    // Only use the selected index in the state if we're not using the tabbed index
+    if (useSelectedIndex) {
+      this.setSelected(index, e);
     }
   }
-});
+}

@@ -1,6 +1,6 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
-import layout from '../templates/components/aria-tab-list';
+import Component from '@glimmer/component';
+
+const DEFAULT_CLASS = 'ember-tabs__tab-list';
 
 /**
  * List of all tabs component rendered as `<ul />` .
@@ -12,17 +12,6 @@ import layout from '../templates/components/aria-tab-list';
  * @class AriaTabList
  * @public
  */
-export default Component.extend({
-  layout,
-  tagName: 'ul',
-  classNames: ['ember-tabs__tab-list'],
-  attributeBindings: [
-    'role'
-  ],
-
-  role: computed({
-    get() {
-      return 'tablist';
-    }
-  }).readOnly(),
-});
+export default class AriaTabListComponent extends Component {
+  className = DEFAULT_CLASS;
+}

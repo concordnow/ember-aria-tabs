@@ -1,0 +1,19 @@
+<ul role="tablist" ...attributes>
+  {{yield
+    (hash
+      tab=(component
+        "aria-tab"
+        didInsertNode=@didInsertNode
+        disabledTabClassName=@disabledTabClassName
+        focus=@focus
+        onClick=@onClick
+        onKeyDown=@onKeyDown
+        panelIds=@panelIds
+        selectedTabClassName=@selectedTabClassName
+        selectedIndex=@selectedIndex
+        tabIds=@tabIds
+        willDestroyNode=@willDestroyNode
+      )
+    )
+  }}
+</ul>
