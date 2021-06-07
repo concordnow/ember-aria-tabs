@@ -16,7 +16,6 @@
 /.git/
 /.gitignore
 /.template-lintrc.js
-/.travis.yml
 /.watchmanconfig
 /bower.json
 /config/ember-try.js
@@ -32,3 +31,6 @@
 /bower.json.ember-try
 /package.json.ember-try
 /config/addon-docs.js
+
+# github
+/.github
