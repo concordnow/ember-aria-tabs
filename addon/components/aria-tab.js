@@ -67,7 +67,7 @@ export default class AriaTabComponent extends Component {
   }
 
   /**
-   * > default: if selected `"0"` otherwise `null`
+   * Default to `"0"` if selected, `null` otherwise.
    *
    * Overrides the tabIndex to enabled tabbing between tabs.
    *

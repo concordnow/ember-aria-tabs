@@ -1,0 +1,45 @@
+{{page-title "AriaTab"}}
+
+{{! MD-BLOCK }}
+# &lt;AriaTab&gt;
+
+A tab component rendered as `<li />`.
+
+If you specify additional props on the `<AriaTab />` component they will be forwarded to the rendered `<li />`.
+
+Default CSS class: `ember-tabs__tab`
+
+
+## API
+
+**disabled**: *Boolean*
+
+Defaults to `false`.
+
+Disable this tab which will make it not do anything when clicked. Also a disabled class name will be added (see `disabledClassName`)
+
+
+**disabledClassName**: *String*
+
+Defaults to `"ember-tabs__tab--disabled"`.
+
+Provide a custom class name for disabled tabs.
+
+> This option can also be set for all `<AriaTab />` components with the prop `disabledTabClassName` on `<AriaTabs />`.
+
+
+**selectedClassName**: *String*
+
+Defaults to `"ember-tabs__tab--selected"`.
+
+> This option can also be set for all `<AriaTab />` components with the prop `disabledTabClassName` on `<AriaTabs />`.
+
+
+**tabIndex**: *String*
+
+
+Default to `"0"` if selected, `null` otherwise.
+
+Overrides the tabIndex to enabled tabbing between tabs.
+
+{{! MD-BLOCK }}

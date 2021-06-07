@@ -1,8 +1,12 @@
+{{page-title "Usage"}}
+
+{{! MD-BLOCK }}
+
 # Usage
 
 ## Compatibility
 
-This addon is tested on **Ember.js v3.1** and above.
+This addon is tested on **Ember.js v3.16** and above.
 
 ## Installation
 
@@ -20,16 +24,13 @@ This is the default mode of ember-aria-tabs and makes the ember-aria-tabs compon
 
 In this mode you cannot force a tab change during runtime.
 
-```hbs
-<AriaTabs @defaultIndex={{1}} @onSelect={{action onSelect}} as |at|>
-  <at.tabList as |tl|>
-    <tl.tab>Title 1</tl.tab>
-    <tl.tab>Title 2</tl.tab>
-  </at.tabList>
-  <at.tabPanel></at.tabPanel>
-  <at.tabPanel></at.tabPanel>
-</AriaTabs>
-```
+{{! MD-BLOCK }}
+
+<p class="pb-8">
+  <CodeBlock @code={{this.uncontrolledMode}} @language="markup" />
+</p>
+
+{{! MD-BLOCK }}
 
 ### Controlled mode
 
@@ -39,19 +40,18 @@ In this mode ember-aria-tabs does not handle any tab selection state internally 
 
 This mode also enforces you to set a handler for `@onSelect`. `@defaultIndex` does not have any effect and will therefore throw an error.
 
-```hbs
-<AriaTabs @selectedIndex={{this.tabIndex}} @onSelect={{action (mut this.tabIndex)}} as |at|>
-  <at.tabList as |tl|>
-    <tl.tab>Title 1</tl.tab>
-    <tl.tab>Title 2</tl.tab>
-  </at.tabList>
-  <at.tabPanel></at.tabPanel>
-  <at.tabPanel></at.tabPanel>
-</AriaTabs>
-```
+{{! MD-BLOCK }}
+
+<p class="pb-8">
+  <CodeBlock @code={{this.controlledMode}} @language="markup" />
+</p>
+
+{{! MD-BLOCK }}
 
 ## Styling
 
 ember-aria-tabs does not include any style loading by default. 
 
 However it does provide you default classes for each components and you can also customize components individually with classic `class` and `style` attributes.
+
+{{! MD-BLOCK }}
