@@ -1,13 +1,13 @@
 {{! template-lint-disable no-inline-styles style-concatenation }}
 {{! BEGIN-SNIPPET avengers-example.hbs }}
 <p>
-  {{#each this.characters as |char|}}
+  {{#each this.characters as |char index|}}
     <label key={{char.name}}>
       <input
         type="checkbox"
         name={{char.name}}
         checked={{char.checked}}
-        {{on "click" (fn (mut char.checked) (not char.checked))}}
+        {{on "click" (fn this.toggleCharacter char index)}}
       />
       {{char.name}}&nbsp;
     </label>
@@ -20,7 +20,7 @@
 >
   <at.tabList class="avengers-tab-list" as |tl|>
     {{#each this.characters as |char|}}
-      {{#if this.characters.checked}}
+      {{#if char.checked}}
         <tl.tab style="background-color: {{char.color}}" class="avengers-tab">
           <img src={{char.img}} alt={{char.name}} height="32" width="32" />
         </tl.tab>

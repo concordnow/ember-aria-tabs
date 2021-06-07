@@ -1,7 +1,10 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 // BEGIN-SNIPPET avengers-example.js
 export default class AvengersExampleComponent extends Component {
+  @tracked
   characters = [
     {
       checked: true,
@@ -84,6 +87,22 @@ export default class AvengersExampleComponent extends Component {
         "\"138 combat missions. That's how many I've flown, Tony. Every one of them could've been my last, but I flew 'em. Because the fight needed to be fought.\"",
     },
   ];
+
+  get checkedCharacters() {
+    return this.characters.filter((char) => char.checked);
+  }
+
+  @action
+  toggleCharacter(char, index) {
+    this.characters = [
+      ...this.characters.slice(0, index),
+      {
+        ...char,
+        checked: !char.checked,
+      },
+      ...this.characters.slice(index + 1),
+    ];
+  }
 }
 
 // END-SNIPPET
