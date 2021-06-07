@@ -540,6 +540,40 @@ module('Integration | Component | aria-tabs', function (hooks) {
     assert.equal(wasClicked, true);
   });
 
+  test('it handles dynamic tabs', async function (assert) {
+    this.set('removed', false);
+    this.set('removeTab', () => {
+      this.set('removed', true);
+    });
+
+    await render(hbs`
+      <button data-test-remove-tab {{on 'click' this.removeTab}}>Remove tab</button>
+      <AriaTabs as |at|>
+        <at.tabList as |tl|>
+          {{#unless this.removed}}
+            <tl.tab data-test-tab-foo>Foo</tl.tab>
+          {{/unless}}
+          <tl.tab>Bar</tl.tab>
+          <tl.tab>Baz</tl.tab>
+          <tl.tab @disabled={{true}}>Qux</tl.tab>
+        </at.tabList>
+        {{#unless this.removed}}
+          <at.tabPanel data-test-panel-foo>Hello Foo</at.tabPanel>
+        {{/unless}}
+        <at.tabPanel data-test-panel-bar>Hello Bar</at.tabPanel>
+        <at.tabPanel>Hello Baz</at.tabPanel>
+        <at.tabPanel>Hello Qux</at.tabPanel>
+      </AriaTabs>
+    `);
+
+    assert.dom('[data-test-panel-foo]').isVisible();
+
+    await click('[data-test-remove-tab]');
+
+    assert.dom('[data-test-panel-foo]').isNotVisible();
+    assert.dom('[data-test-panel-bar]').isVisible();
+  });
+
   test('it handles complex layout', async function (assert) {
     await render(hbs`
       <AriaTabs @forceRenderTabPanel={{true}} @defaultIndex={{1}} as |at|>
