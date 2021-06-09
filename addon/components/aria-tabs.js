@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { cached } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { A } from '@ember/array';
+import { debounce } from '@ember/runloop';
 import { tracked } from '@glimmer/tracking';
 import { isNone } from '@ember/utils';
 
@@ -22,6 +23,8 @@ const DEFAULT_CLASS = 'ember-tabs';
  */
 export default class AriaTabsComponent extends Component {
   className = DEFAULT_CLASS;
+  _tabIds = A([]);
+  _panelIds = A([]);
   @tracked tabNodes = A([]);
   @tracked tabIds = A([]);
   @tracked panelNodes = A([]);
@@ -152,28 +155,44 @@ export default class AriaTabsComponent extends Component {
       : MODE_CONTROLLED;
   }
 
+  // Ember 3.16
+  // Need debounce to avoid double computation on the same loop
+  updateTabIds() {
+    this.tabIds = this._tabIds;
+  }
+
+  // Ember 3.16
+  // Need debounce to avoid double computation on the same loop
+  updatePanelIds() {
+    this.panelIds = this._panelIds;
+  }
+
   @action
   didInsertPanel(elementId, element) {
     this.panelNodes = A([...this.panelNodes, element]);
-    this.panelIds = A([...this.panelIds, elementId]);
+    this._panelIds = A([...this._panelIds, elementId]);
+    debounce(this, this.updatePanelIds, 0);
   }
 
   @action
   willDestroyPanel(elementId, element) {
     this.panelNodes = A(this.panelNodes.without(element));
-    this.panelIds = A(this.panelIds.without(elementId));
+    this._panelIds = A(this._panelIds.without(elementId));
+    debounce(this, this.updatePanelIds, 0);
   }
 
   @action
   didInsertTab(elementId, element) {
     this.tabNodes = A([...this.tabNodes, element]);
-    this.tabIds = A([...this.tabIds, elementId]);
+    this._tabIds = A([...this._tabIds, elementId]);
+    debounce(this, this.updateTabIds, 0);
   }
 
   @action
   willDestroyTab(elementId, element) {
     this.tabNodes = A(this.tabNodes.without(element));
-    this.tabIds = A(this.tabIds.without(elementId));
+    this._tabIds = A(this._tabIds.without(elementId));
+    debounce(this, this.updateTabIds, 0);
   }
 
   @action
