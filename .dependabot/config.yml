@@ -6,8 +6,6 @@ update_configs:
     ignored_updates:
       - match:
           dependency_name: "ember-cli"
-      - match:
-          dependency_name: "ember-cli-addon-docs*"
 
     default_reviewers:
       - "ctjhoa"

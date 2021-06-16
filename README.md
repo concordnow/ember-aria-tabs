@@ -51,7 +51,6 @@ Thanks
 ------------------------------------------------------------------------------
 
 * [react-tabs](https://github.com/reactjs/react-tabs)
-* [ember-cli-addon-docs](https://github.com/ember-learn/ember-cli-addon-docs)
 
 
 Contributing
