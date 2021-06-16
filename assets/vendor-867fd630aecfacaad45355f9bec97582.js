@@ -4507,9 +4507,7 @@ var d,h,m,v,g,b,y=(t=Ember.inject.service("page-title-list"),d=(n=function(e){(f
 e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&u(e,t)})(h,Ember.Helper)
 var t,n,c,d=l(h)
 function h(){var e
-o(this,h)
-for(var t=arguments.length,n=new Array(t),a=0;a<t;a++)n[a]=arguments[a]
-return i(f(e=d.call.apply(d,[this].concat(n))),"tokens",r,f(e)),e}return t=h,(n=[{key:"tokenId",get:function(){return Ember.guidFor(this)}},{key:"init",value:function(){s(p(h.prototype),"init",this).apply(this,arguments),this.tokens.push({id:this.tokenId})}},{key:"compute",value:function(e,t){var n=Ember.assign({},t,{id:this.tokenId,title:e.join("")})
+return o(this,h),i(f(e=d.apply(this,arguments)),"tokens",r,f(e)),e.tokens.push({id:e.tokenId}),e}return t=h,(n=[{key:"tokenId",get:function(){return Ember.guidFor(this)}},{key:"compute",value:function(e,t){var n=Ember.assign({},t,{id:this.tokenId,title:e.join("")})
 return this.tokens.push(n),this.tokens.scheduleTitleUpdate(),""}},{key:"willDestroy",value:function(){s(p(h.prototype),"willDestroy",this).call(this),this.tokens.remove(this.tokenId),this.tokens.scheduleTitleUpdate()}}])&&a(t.prototype,n),c&&a(t,c),h}()).prototype,h="tokens",m=[t],v={configurable:!0,enumerable:!0,writable:!0,initializer:null},b={},Object.keys(v).forEach((function(e){b[e]=v[e]})),b.enumerable=!!b.enumerable,b.configurable=!!b.configurable,("value"in b||b.initializer)&&(b.writable=!0),b=m.slice().reverse().reduce((function(e,t){return t(d,h,e)||e}),b),g&&void 0!==b.initializer&&(b.value=b.initializer?b.initializer.call(g):void 0,b.initializer=void 0),void 0===b.initializer&&(Object.defineProperty(d,h,b),b=null),r=b,n)
 e.default=y})),define("ember-page-title/services/page-title-list",["exports"],(function(e){"use strict"
 var t,n,r,i,o,a,s
@@ -4533,16 +4531,13 @@ n=Reflect.construct(r,arguments,i)}else n=r.apply(this,arguments)
 return v(this,n)}}function v(e,t){return!t||"object"!==_typeof(t)&&"function"!=typeof t?g(e):t}function g(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called")
 return e}function b(e){return(b=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function y(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function _(e,t,n,r,i){var o={}
 return Object.keys(r).forEach((function(e){o[e]=r[e]})),o.enumerable=!!o.enumerable,o.configurable=!!o.configurable,("value"in o||o.initializer)&&(o.writable=!0),o=n.slice().reverse().reduce((function(n,r){return r(e,t,n)||n}),o),i&&void 0!==o.initializer&&(o.value=o.initializer?o.initializer.call(i):void 0,o.initializer=void 0),void 0===o.initializer&&(Object.defineProperty(e,t,o),o=null),o}Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
-var w="undefined"!=typeof FastBoot,E="routeDidChange",O=(t=Ember.inject.service,n=Ember.inject.service,r=Ember.inject.service("-document"),o=_((i=function(e){(function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function")
+var w="undefined"!=typeof FastBoot,E="routeDidChange",O=(t=Ember.inject.service("page-title"),n=Ember.inject.service,r=Ember.inject.service("-document"),o=_((i=function(e){(function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function")
 e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&h(e,t)})(l,Ember.Service)
 var t,n,r,i=m(l)
 function l(){var e
-f(this,l)
-for(var t=arguments.length,n=new Array(t),r=0;r<t;r++)n[r]=arguments[r]
-return c(g(e=i.call.apply(i,[this].concat(n))),"pageTitle",o,g(e)),c(g(e),"router",a,g(e)),c(g(e),"document",s,g(e)),y(g(e),"tokens",[]),y(g(e),"_defaultConfig",{separator:" | ",prepend:!0,replace:null}),y(g(e),"scheduleTitleUpdate",(function(){Ember.run.scheduleOnce("afterRender",g(e),e._updateTitle)})),e}return t=l,(n=[{key:"init",value:function(){var e=this
-d(b(l.prototype),"init",this).call(this),this._validateExistingTitleElement()
-var t=Ember.getOwner(this).resolveRegistration("config:environment")
-t.pageTitle&&["separator","prepend","replace"].forEach((function(n){Ember.isEmpty(t.pageTitle[n])||(e._defaultConfig[n]=t.pageTitle[n])})),this.router.on(E,this.scheduleTitleUpdate)}},{key:"applyTokenDefaults",value:function(e){var t=this._defaultConfig.separator,n=this._defaultConfig.prepend,r=this._defaultConfig.replace
+f(this,l),c(g(e=i.apply(this,arguments)),"pageTitle",o,g(e)),c(g(e),"router",a,g(e)),c(g(e),"document",s,g(e)),y(g(e),"tokens",[]),y(g(e),"_defaultConfig",{separator:" | ",prepend:!0,replace:null}),y(g(e),"scheduleTitleUpdate",(function(){Ember.run.scheduleOnce("afterRender",g(e),e._updateTitle)})),e._validateExistingTitleElement()
+var t=Ember.getOwner(g(e)).resolveRegistration("config:environment")
+return t.pageTitle&&["separator","prepend","replace"].forEach((function(n){Ember.isEmpty(t.pageTitle[n])||(e._defaultConfig[n]=t.pageTitle[n])})),e.router.on(E,e.scheduleTitleUpdate),e}return t=l,(n=[{key:"applyTokenDefaults",value:function(e){var t=this._defaultConfig.separator,n=this._defaultConfig.prepend,r=this._defaultConfig.replace
 null==e.separator&&(e.separator=t),null==e.prepend&&null!=n&&(e.prepend=n),null==e.replace&&null!=r&&(e.replace=r)}},{key:"inheritFromPrevious",value:function(e){var t=e.previous
 t&&(null==e.separator&&(e.separator=t.separator),null==e.prepend&&(e.prepend=t.prepend))}},{key:"push",value:function(e){var t=this._findTokenById(e.id)
 if(t){var n=this.tokens.indexOf(t),r=u(this.tokens),i=t.previous
