@@ -232,6 +232,7 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
         // Check if the change event handler cancels the tab change
         return;
       }
+      this.selectedIndex = this.args.selectedIndex
     }
 
     this.focus = event.type === 'keydown';
