@@ -1,8 +1,8 @@
 <div
   class={{this.className}}
   ...attributes
-  {{did-insert this.didUpsert this.tabIds this.panelIds}}
-  {{did-update this.didUpsert this.tabIds this.panelIds}}
+  {{did-insert this.didUpsert this.tabIds this.panelIds @selectedIndex}}
+  {{did-update this.didUpsert this.tabIds this.panelIds @selectedIndex}}
 >
   {{yield
     (hash

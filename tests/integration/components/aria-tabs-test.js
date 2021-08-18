@@ -243,6 +243,38 @@ module('Integration | Component | aria-tabs', function (hooks) {
     assert.equal(panels[3].textContent.trim(), 'Hello Qux false');
   });
 
+  test('it changes the selected tab in controlled mode', async function (assert) {
+    this.tabIndex = 0;
+
+    await render(hbs`
+      <AriaTabs @selectedIndex={{this.tabIndex}} @onSelect={{fn (mut this.tabIndex)}} as |at|>
+        <at.tabList as |tl|>
+          <tl.tab as |t|>Foo {{t.selected}}</tl.tab>
+          <tl.tab as |t|>Bar {{t.selected}}</tl.tab>
+        </at.tabList>
+        <at.tabPanel as |tp|>Hello Foo {{tp.selected}}</at.tabPanel>
+        <at.tabPanel as |tp|>Hello Bar {{tp.selected}}</at.tabPanel>
+      </AriaTabs>
+    `);
+
+    let tabs = findAll('[role="tab"]');
+    let panels = findAll('[role="tabpanel"]');
+
+    assertTabSelected(assert, 0);
+
+    assert.equal(tabs[0].textContent.trim(), 'Foo true');
+    assert.equal(tabs[1].textContent.trim(), 'Bar false');
+
+    assert.equal(panels[0].textContent.trim(), 'Hello Foo true');
+    assert.equal(panels[1].textContent.trim(), '');
+
+    await click(tabs[1]);
+    assertTabSelected(assert, 1);
+
+    assert.equal(panels[0].textContent.trim(), '');
+    assert.equal(panels[1].textContent.trim(), 'Hello Bar true');
+  });
+
   test('it does not change selectedIndex when clicking a disabled tab', async function (assert) {
     await createTabs();
 
