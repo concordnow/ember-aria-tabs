@@ -16,11 +16,19 @@ module('Integration | Component | aria-tab-list', function (hooks) {
     assert.equal(tabList.textContent.trim(), '');
   });
 
+  test('it renders with the default class', async function (assert) {
+    await render(hbs`<AriaTabList />`);
+
+    let tabList = this.element.querySelector('[role="tablist"]');
+    assert.equal(tabList.classList.contains('ember-tabs__tab-list'), true);
+  });
+
   test('it renders with class', async function (assert) {
     await render(hbs`<AriaTabList class="foobar" />`);
 
     let tabList = this.element.querySelector('[role="tablist"]');
     assert.equal(tabList.classList.contains('foobar'), true);
+    assert.equal(tabList.classList.contains('ember-tabs__tab-list'), true);
   });
 
   test('it pass through custom properties', async function (assert) {
