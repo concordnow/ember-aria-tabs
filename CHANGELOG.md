@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix broken tab switching in controlled mode (#260) @mayatron
+- Add missing default class name for tab list (#259) @mayatron
+
 ## [4.0.0] - 2021-06-16
 
 ### Changed
