@@ -1,6 +1,6 @@
 {
   "name": "ember-aria-tabs",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "An accessible and easy tab component for Ember.js",
   "keywords": [
     "tabs",
