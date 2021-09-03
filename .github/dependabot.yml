@@ -6,7 +6,7 @@ updates:
       interval: weekly
     open-pull-requests-limit: 10
     reviewers:
-      - ctjhoa
+      - "concordnow/frontend"
     ignore:
       - dependency-name: ember-cli
         versions:
@@ -16,4 +16,4 @@ updates:
     schedule:
       interval: weekly
     reviewers:
-      - ctjhoa
+      - "concordnow/frontend"
