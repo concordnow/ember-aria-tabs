@@ -28,6 +28,7 @@
     "start": "ember serve",
     "test": "npm-run-all lint test:*",
     "test:ember": "ember test",
+    "test:percy": "percy exec -- ember test",
     "test:ember-compatibility": "ember try:each"
   },
   "dependencies": {
@@ -42,6 +43,8 @@
     "@embroider/test-setup": "^0.37.0",
     "@glimmer/component": "^1.0.3",
     "@glimmer/tracking": "^1.0.3",
+    "@percy/cli": "^1.0.0-beta.67",
+    "@percy/ember": "^3.0.0",
     "@release-it/keep-a-changelog": "^2.2.2",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
