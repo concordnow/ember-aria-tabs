@@ -7,7 +7,7 @@ import {
   focus,
   triggerKeyEvent,
 } from '@ember/test-helpers';
-import { percySnapshot } from 'ember-percy';
+import percySnapshot from '@percy/ember';
 import hbs from 'htmlbars-inline-precompile';
 
 function createTabs() {
