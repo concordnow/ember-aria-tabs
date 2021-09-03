@@ -116,7 +116,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First implementation
 
-[unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v3.0.1...HEAD
 [4.0.2]: https://github.com/concordnow/ember-aria-tabs/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/concordnow/ember-aria-tabs/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/concordnow/ember-aria-tabs/compare/v3.0.1...v4.0.0
