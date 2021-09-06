@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] -
+
+### Dependencies upgrade
+
+* 587a905 Bump @embroider/test-setup from 0.37.0 to 0.44.0
+* 3d7b2ed Bump ember-template-lint from 2.21.0 to 3.6.0
+* 76fad00 Bump ember-cli-babel from 7.24.0 to 7.26.6
+* c9ca798 Bump ember-cached-decorator-polyfill from 0.1.1 to 0.1.4
+
 ## [4.0.2] - 2021-09-01
 
 ### Changed
