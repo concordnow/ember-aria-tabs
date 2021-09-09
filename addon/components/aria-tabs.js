@@ -61,7 +61,7 @@ export default class AriaTabsComponent extends Component {
    * Defaults to `null`.
    *
    * This event handler is called every time a tab is about to change.
-   * It will be called with the `index` that it will be changed to, the `lastIndex` which was selected before and the underlying `event` which is usually either a `keydown` or `click` event.
+   * It will be called with the `index` that it will be changed to, the `lastIndex` which was selected before and the underlying `event` which is usually either a `keyup` or `click` event.
    * When `index` and `lastIndex` are equal it means the user clicked on the currently active tab.
    *
    * The callback can optionally return `false` to cancel the change to the new tab.
@@ -234,7 +234,7 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
       }
     }
 
-    this.focus = event.type === 'keydown';
+    this.focus = event.type === 'keyup';
 
     if (this.mode === MODE_UNCONTROLLED) {
       this.selectedIndex = index;
@@ -323,7 +323,7 @@ For more information about controlled and uncontrolled mode of ember-aria-tabs s
   }
 
   @action
-  handleKeyDown(index, e) {
+  handleKeyUp(index, e) {
     let preventDefault = false;
     let useSelectedIndex = false;
 

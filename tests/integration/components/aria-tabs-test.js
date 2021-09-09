@@ -290,7 +290,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     await click(target);
     await focus(target);
-    await triggerKeyEvent(target, 'keydown', 'ArrowRight');
+    await triggerKeyEvent(target, 'keyup', 'ArrowRight');
 
     assertTabSelected(assert, 2);
   });
@@ -302,7 +302,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     await click(target);
     await focus(target);
-    await triggerKeyEvent(target, 'keydown', 'ArrowLeft');
+    await triggerKeyEvent(target, 'keyup', 'ArrowLeft');
 
     assertTabSelected(assert, 2);
   });

@@ -14,7 +14,7 @@
   {{did-insert this.checkFocus}}
   {{did-update this.checkFocus}}
   {{on "click" this.onClick}}
-  {{on "keydown" this.onKeyDown}}
+  {{on "keyup" this.onKeyUp}}
 >
   {{yield (hash selected=this.selected)}}
 </li>

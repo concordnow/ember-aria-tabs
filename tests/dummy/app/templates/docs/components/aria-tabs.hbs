@@ -34,7 +34,7 @@ This is a zero-based index, so first tab is `0`, second tab is `1`, ...
 Defaults to `null`.
 
 This event handler is called every time a tab is about to change.
-It will be called with the `index` that it will be changed to, the `lastIndex` which was selected before and the underlying `event` which is usually either a `keydown` or `click` event.
+It will be called with the `index` that it will be changed to, the `lastIndex` which was selected before and the underlying `event` which is usually either a `keyup` or `click` event.
 When `index` and `lastIndex` are equal it means the user clicked on the currently active tab.
 
 The callback can optionally return `false` to cancel the change to the new tab.

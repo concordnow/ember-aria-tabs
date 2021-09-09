@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bump dependencies
 - Requires ember-auto-import >= 2
+- Turn `onKeyDown` into `onKeyUp` [no-down-event-binding](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-down-event-binding.md)
 
 ## [4.0.2] - 2021-09-01
 

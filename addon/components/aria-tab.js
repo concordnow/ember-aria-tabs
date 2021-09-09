@@ -143,9 +143,9 @@ export default class AriaTabComponent extends Component {
   }
 
   @action
-  onKeyDown() {
-    if (typeof this.args.onKeyDown === 'function') {
-      this.args.onKeyDown(this.nodeIndex, ...arguments);
+  onKeyUp() {
+    if (typeof this.args.onKeyUp === 'function') {
+      this.args.onKeyUp(this.nodeIndex, ...arguments);
     }
   }
 }
