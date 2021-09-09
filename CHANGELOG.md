@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0] - 2021-09-09
+
 ### Changed
 
 - Bump dependencies
@@ -122,6 +124,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First implementation
 
+[5.0.0]: https://github.com/concordnow/ember-aria-tabs/compare/v4.0.2...v5.0.0
 [4.0.2]: https://github.com/concordnow/ember-aria-tabs/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/concordnow/ember-aria-tabs/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/concordnow/ember-aria-tabs/compare/v3.0.1...v4.0.0
@@ -138,4 +141,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.0]: https://github.com/concordnow/ember-aria-tabs/releases/tag/1.0.0
 
 
-[Unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v4.0.2...HEAD
+[Unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v5.0.0...HEAD
