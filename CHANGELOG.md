@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump dependencies
+- Requires ember-auto-import >= 2
+
 ## [4.0.2] - 2021-09-01
 
 ### Changed
