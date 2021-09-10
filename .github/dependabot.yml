@@ -11,6 +11,9 @@ updates:
       - dependency-name: ember-cli
         versions:
           - ">= 0"
+      - dependency-name: ember-source
+        versions:
+          - ">= 0"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
