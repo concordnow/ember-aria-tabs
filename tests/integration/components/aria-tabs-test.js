@@ -683,7 +683,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
       </AriaTabs>
     `);
 
-    percySnapshot(assert);
+    await percySnapshot(assert);
 
     // Prevent 0 assertion exception
     assert.equal(0, 0);
