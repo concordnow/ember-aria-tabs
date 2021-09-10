@@ -21,3 +21,4 @@
 /package.json.ember-try
 
 /tests/dummy/app/templates/docs/
+/tests/dummy/app/templates/index.hbs
