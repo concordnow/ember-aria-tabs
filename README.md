@@ -45,7 +45,7 @@ Here is a basic example:
 
 ```
 
-You can find more examples [here](https://concordnow.github.io/ember-aria-tabs/docs/examples).
+You can find more examples [here](https://concordnow.github.io/ember-aria-tabs/#/docs/examples).
 
 
 Thanks
