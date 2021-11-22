@@ -33,8 +33,8 @@ function assertTabSelected(assert, index) {
   const tab = findAll('[role="tab"]')[index];
   const panel = findAll('[role="tabpanel"]')[index];
 
-  assert.equal(tab.getAttribute('aria-selected'), 'true');
-  assert.notEqual(panel.textContent, '');
+  assert.dom(tab).hasAttribute('aria-selected', 'true');
+  assert.dom(panel).hasAnyText();
 }
 
 module('Integration | Component | aria-tabs', function (hooks) {
@@ -51,15 +51,16 @@ module('Integration | Component | aria-tabs', function (hooks) {
     assert.equal(tabs.length, 4);
     assert.equal(tabPanels.length, 4);
     assert.equal(disabledTab.length, 1);
-    assert.equal(disabledTab[0].textContent.trim(), 'Qux');
+    assert.dom(disabledTab[0]).hasText('Qux');
 
-    assert.equal(tabPanels[0].textContent.trim(), 'Hello Foo');
-    assert.equal(tabPanels[1].textContent.trim(), '');
-    assert.equal(tabPanels[2].textContent.trim(), '');
-    assert.equal(tabPanels[3].textContent.trim(), '');
-  }),
-    test('it renders with positive defaultIndex prop', async function (assert) {
-      await render(hbs`
+    assert.dom(tabPanels[0]).hasText('Hello Foo');
+    assert.dom(tabPanels[1]).hasText('');
+    assert.dom(tabPanels[2]).hasText('');
+    assert.dom(tabPanels[3]).hasText('');
+  });
+
+  test('it renders with positive defaultIndex prop', async function (assert) {
+    await render(hbs`
       <AriaTabs @defaultIndex={{1}} as |at|>
         <at.tabList as |tl|>
           <tl.tab>Foo</tl.tab>
@@ -76,16 +77,16 @@ module('Integration | Component | aria-tabs', function (hooks) {
       </AriaTabs>
     `);
 
-      let selectedTab = findAll('[role="tab"][aria-selected="true"]');
-      let tabPanels = findAll('[role="tabpanel"]');
+    let selectedTab = findAll('[role="tab"][aria-selected="true"]');
+    let tabPanels = findAll('[role="tabpanel"]');
 
-      assert.equal(selectedTab.length, 1);
-      assert.equal(selectedTab[0].textContent.trim(), 'Bar');
-      assert.equal(tabPanels[0].textContent.trim(), '');
-      assert.equal(tabPanels[1].textContent.trim(), 'Hello Bar');
-      assert.equal(tabPanels[2].textContent.trim(), '');
-      assert.equal(tabPanels[3].textContent.trim(), '');
-    });
+    assert.equal(selectedTab.length, 1);
+    assert.dom(selectedTab[0]).hasText('Bar');
+    assert.dom(tabPanels[0]).hasText('');
+    assert.dom(tabPanels[1]).hasText('Hello Bar');
+    assert.dom(tabPanels[2]).hasText('');
+    assert.dom(tabPanels[3]).hasText('');
+  });
 
   test('it renders with negative defaultIndex prop', async function (assert) {
     await render(hbs`
@@ -110,10 +111,10 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     assert.equal(selectedTab.length, 0);
 
-    assert.equal(tabPanels[0].textContent.trim(), '');
-    assert.equal(tabPanels[1].textContent.trim(), '');
-    assert.equal(tabPanels[2].textContent.trim(), '');
-    assert.equal(tabPanels[3].textContent.trim(), '');
+    assert.dom(tabPanels[0]).hasText('');
+    assert.dom(tabPanels[1]).hasText('');
+    assert.dom(tabPanels[2]).hasText('');
+    assert.dom(tabPanels[3]).hasText('');
   });
 
   test('it calls onSelect when selection changes', async function (assert) {
@@ -164,10 +165,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
       </AriaTabs>
     `);
 
-    assert.equal(
-      this.element.querySelector('.ember-tabs').classList.contains('foobar'),
-      true
-    );
+    assert.dom('.ember-tabs').hasClass('foobar');
   });
 
   test('it updates selectedIndex when clicked', async function (assert) {
@@ -220,27 +218,27 @@ module('Integration | Component | aria-tabs', function (hooks) {
     let tabs = findAll('[role="tab"]');
     let panels = findAll('[role="tabpanel"]');
 
-    assert.equal(tabs[0].textContent.trim(), 'Foo true');
-    assert.equal(tabs[1].textContent.trim(), 'Bar false');
-    assert.equal(tabs[2].textContent.trim(), 'Baz false');
-    assert.equal(tabs[3].textContent.trim(), 'Qux false');
+    assert.dom(tabs[0]).hasText('Foo true');
+    assert.dom(tabs[1]).hasText('Bar false');
+    assert.dom(tabs[2]).hasText('Baz false');
+    assert.dom(tabs[3]).hasText('Qux false');
 
-    assert.equal(panels[0].textContent.trim(), 'Hello Foo true');
-    assert.equal(panels[1].textContent.trim(), 'Hello Bar false');
-    assert.equal(panels[2].textContent.trim(), 'Hello Baz false');
-    assert.equal(panels[3].textContent.trim(), 'Hello Qux false');
+    assert.dom(panels[0]).hasText('Hello Foo true');
+    assert.dom(panels[1]).hasText('Hello Bar false');
+    assert.dom(panels[2]).hasText('Hello Baz false');
+    assert.dom(panels[3]).hasText('Hello Qux false');
 
     await click(tabs[2]);
 
-    assert.equal(tabs[0].textContent.trim(), 'Foo false');
-    assert.equal(tabs[1].textContent.trim(), 'Bar false');
-    assert.equal(tabs[2].textContent.trim(), 'Baz true');
-    assert.equal(tabs[3].textContent.trim(), 'Qux false');
+    assert.dom(tabs[0]).hasText('Foo false');
+    assert.dom(tabs[1]).hasText('Bar false');
+    assert.dom(tabs[2]).hasText('Baz true');
+    assert.dom(tabs[3]).hasText('Qux false');
 
-    assert.equal(panels[0].textContent.trim(), 'Hello Foo false');
-    assert.equal(panels[1].textContent.trim(), 'Hello Bar false');
-    assert.equal(panels[2].textContent.trim(), 'Hello Baz true');
-    assert.equal(panels[3].textContent.trim(), 'Hello Qux false');
+    assert.dom(panels[0]).hasText('Hello Foo false');
+    assert.dom(panels[1]).hasText('Hello Bar false');
+    assert.dom(panels[2]).hasText('Hello Baz true');
+    assert.dom(panels[3]).hasText('Hello Qux false');
   });
 
   test('it changes the selected tab in controlled mode', async function (assert) {
@@ -262,17 +260,17 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     assertTabSelected(assert, 0);
 
-    assert.equal(tabs[0].textContent.trim(), 'Foo true');
-    assert.equal(tabs[1].textContent.trim(), 'Bar false');
+    assert.dom(tabs[0]).hasText('Foo true');
+    assert.dom(tabs[1]).hasText('Bar false');
 
-    assert.equal(panels[0].textContent.trim(), 'Hello Foo true');
-    assert.equal(panels[1].textContent.trim(), '');
+    assert.dom(panels[0]).hasText('Hello Foo true');
+    assert.dom(panels[1]).hasText('');
 
     await click(tabs[1]);
     assertTabSelected(assert, 1);
 
-    assert.equal(panels[0].textContent.trim(), '');
-    assert.equal(panels[1].textContent.trim(), 'Hello Bar true');
+    assert.dom(panels[0]).hasText('');
+    assert.dom(panels[1]).hasText('Hello Bar true');
   });
 
   test('it does not change selectedIndex when clicking a disabled tab', async function (assert) {
@@ -311,21 +309,21 @@ module('Integration | Component | aria-tabs', function (hooks) {
     await createTabs();
 
     let tabPanels = findAll('[role="tabpanel"]');
-    assert.equal(tabPanels[0].textContent.trim(), 'Hello Foo');
-    assert.equal(tabPanels[1].textContent.trim(), '');
-    assert.equal(tabPanels[2].textContent.trim(), '');
+    assert.dom(tabPanels[0]).hasText('Hello Foo');
+    assert.dom(tabPanels[1]).hasText('');
+    assert.dom(tabPanels[2]).hasText('');
 
     await click(findAll('[role="tab"]')[1]);
 
-    assert.equal(tabPanels[0].textContent.trim(), '');
-    assert.equal(tabPanels[1].textContent.trim(), 'Hello Bar');
-    assert.equal(tabPanels[2].textContent.trim(), '');
+    assert.dom(tabPanels[0]).hasText('');
+    assert.dom(tabPanels[1]).hasText('Hello Bar');
+    assert.dom(tabPanels[2]).hasText('');
 
     await click(findAll('[role="tab"]')[2]);
 
-    assert.equal(tabPanels[0].textContent.trim(), '');
-    assert.equal(tabPanels[1].textContent.trim(), '');
-    assert.equal(tabPanels[2].textContent.trim(), 'Hello Baz');
+    assert.dom(tabPanels[0]).hasText('');
+    assert.dom(tabPanels[1]).hasText('');
+    assert.dom(tabPanels[2]).hasText('Hello Baz');
   });
 
   test('it renders all tabs if forceRenderTabPanel is true', async function (assert) {
@@ -347,10 +345,10 @@ module('Integration | Component | aria-tabs', function (hooks) {
     `);
 
     let tabPanels = findAll('[role="tabpanel"]');
-    assert.equal(tabPanels[0].textContent.trim(), 'Hello Foo');
-    assert.equal(tabPanels[1].textContent.trim(), 'Hello Bar');
-    assert.equal(tabPanels[2].textContent.trim(), 'Hello Baz');
-    assert.equal(tabPanels[3].textContent.trim(), 'Hello Qux');
+    assert.dom(tabPanels[0]).hasText('Hello Foo');
+    assert.dom(tabPanels[1]).hasText('Hello Bar');
+    assert.dom(tabPanels[2]).hasText('Hello Baz');
+    assert.dom(tabPanels[3]).hasText('Hello Qux');
   });
 
   test('it renders all tabs if forceRenderTabPanel is true', async function (assert) {
@@ -372,15 +370,15 @@ module('Integration | Component | aria-tabs', function (hooks) {
     `);
 
     let tabPanels = findAll('[role="tabpanel"]');
-    assert.equal(tabPanels[0].textContent.trim(), 'Hello Foo');
-    assert.equal(tabPanels[1].textContent.trim(), 'Hello Bar');
-    assert.equal(tabPanels[2].textContent.trim(), 'Hello Baz');
-    assert.equal(tabPanels[3].textContent.trim(), 'Hello Qux');
+    assert.dom(tabPanels[0]).hasText('Hello Foo');
+    assert.dom(tabPanels[1]).hasText('Hello Bar');
+    assert.dom(tabPanels[2]).hasText('Hello Baz');
+    assert.dom(tabPanels[3]).hasText('Hello Qux');
   });
 
   test('it renders without children', async function (assert) {
     await render(hbs`<AriaTabs />`);
-    assert.equal(this.element.textContent.trim(), '');
+    assert.dom(this.element).hasText('');
   });
 
   test('it renders with just tabList', async function (assert) {
@@ -389,7 +387,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
         <at.tabList />
       </AriaTabs>
     `);
-    assert.equal(this.element.textContent.trim(), '');
+    assert.dom(this.element).hasText('');
   });
 
   test('it renders conditionally', async function (assert) {
@@ -466,8 +464,8 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     const buttons = findAll('#tabs-nav-wrapper button');
     assert.equal(buttons.length, 2);
-    assert.equal(buttons[0].textContent, 'Left');
-    assert.equal(buttons[1].textContent, 'Right');
+    assert.dom(buttons[0]).hasText('Left');
+    assert.dom(buttons[1]).hasText('Right');
 
     let tabList = findAll('.tabs-container [role="tablist"]');
     let tabs = findAll('.tabs-container [role="tab"]');
@@ -537,7 +535,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     assertTabSelected(assert, 1);
 
-    assert.equal(wasClicked, true);
+    assert.true(wasClicked);
   });
 
   test('it trigger onSelect handler when clicking on open tab', async function (assert) {
@@ -569,7 +567,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     assertTabSelected(assert, 0);
 
-    assert.equal(wasClicked, true);
+    assert.true(wasClicked);
   });
 
   test('it handles dynamic tabs', async function (assert) {
