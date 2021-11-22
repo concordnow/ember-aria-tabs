@@ -351,31 +351,6 @@ module('Integration | Component | aria-tabs', function (hooks) {
     assert.dom(tabPanels[3]).hasText('Hello Qux');
   });
 
-  test('it renders all tabs if forceRenderTabPanel is true', async function (assert) {
-    await render(hbs`
-      <AriaTabs @forceRenderTabPanel={{true}} as |at|>
-        <at.tabList as |tl|>
-          <tl.tab>Foo</tl.tab>
-          <tl.tab>Bar</tl.tab>
-          <tl.tab>
-            <a href="a">Baz</a>
-          </tl.tab>
-          <tl.tab @disabled={{true}}>Qux</tl.tab>
-        </at.tabList>
-        <at.tabPanel>Hello Foo</at.tabPanel>
-        <at.tabPanel>Hello Bar</at.tabPanel>
-        <at.tabPanel>Hello Baz</at.tabPanel>
-        <at.tabPanel>Hello Qux</at.tabPanel>
-      </AriaTabs>
-    `);
-
-    let tabPanels = findAll('[role="tabpanel"]');
-    assert.dom(tabPanels[0]).hasText('Hello Foo');
-    assert.dom(tabPanels[1]).hasText('Hello Bar');
-    assert.dom(tabPanels[2]).hasText('Hello Baz');
-    assert.dom(tabPanels[3]).hasText('Hello Qux');
-  });
-
   test('it renders without children', async function (assert) {
     await render(hbs`<AriaTabs />`);
     assert.dom(this.element).hasText('');
