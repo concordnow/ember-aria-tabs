@@ -12,30 +12,30 @@ module('Integration | Component | aria-tab-list', function (hooks) {
 
     await render(hbs`<AriaTabList />`);
 
-    let tabList = this.element.querySelector('[role="tablist"]');
-    assert.equal(tabList.textContent.trim(), '');
+    assert.dom('[role="tablist"]').hasText('');
   });
 
   test('it renders with the default class', async function (assert) {
     await render(hbs`<AriaTabList />`);
 
-    let tabList = this.element.querySelector('[role="tablist"]');
-    assert.equal(tabList.classList.contains('ember-tabs__tab-list'), true);
+    assert.dom('[role="tablist"]').hasClass('ember-tabs__tab-list');
   });
 
   test('it renders with class', async function (assert) {
     await render(hbs`<AriaTabList class="foobar" />`);
 
-    let tabList = this.element.querySelector('[role="tablist"]');
-    assert.equal(tabList.classList.contains('foobar'), true);
-    assert.equal(tabList.classList.contains('ember-tabs__tab-list'), true);
+    assert
+      .dom('[role="tablist"]')
+      .hasClass('foobar')
+      .hasClass('ember-tabs__tab-list');
   });
 
   test('it pass through custom properties', async function (assert) {
     await render(hbs`<AriaTabList data-tooltip="Tooltip contents" />`);
 
-    let tabList = this.element.querySelector('[role="tablist"]');
-    assert.equal(tabList.getAttribute('data-tooltip'), 'Tooltip contents');
+    assert
+      .dom('[role="tablist"]')
+      .hasAttribute('data-tooltip', 'Tooltip contents');
   });
 
   test('it retains the default classnames for active and disabled tab', async function (assert) {
@@ -50,9 +50,9 @@ module('Integration | Component | aria-tab-list', function (hooks) {
       </AriaTabs>
     `);
 
-    let tabs = this.element.querySelectorAll('[role="tab"]');
-    // assert.equal(tabs[0].classList.contains('ember-tabs__tab--selected'), true);
-    assert.equal(tabs[1].classList.contains('ember-tabs__tab--disabled'), true);
+    assert
+      .dom('[role="tab"]:nth-child(2)')
+      .hasClass('ember-tabs__tab--disabled');
   });
 
   test('it display the custom classnames for selected and disabled tab specified on tabs', async function (assert) {
@@ -71,9 +71,8 @@ module('Integration | Component | aria-tab-list', function (hooks) {
       </AriaTabs>
     `);
 
-    let tabs = this.element.querySelectorAll('[role="tab"]');
-    assert.equal(tabs[0].classList.contains('active'), true);
-    assert.equal(tabs[1].classList.contains('disabled'), true);
+    assert.dom('[role="tab"]:nth-child(1)').hasClass('active');
+    assert.dom('[role="tab"]:nth-child(2)').hasClass('disabled');
   });
 
   test('it display the custom classnames for selected and disabled tab', async function (assert) {
@@ -92,8 +91,7 @@ module('Integration | Component | aria-tab-list', function (hooks) {
       </AriaTabs>
     `);
 
-    let tabs = this.element.querySelectorAll('[role="tab"]');
-    assert.equal(tabs[0].classList.contains('active'), true);
-    assert.equal(tabs[1].classList.contains('disabled'), true);
+    assert.dom('[role="tab"]:nth-child(1)').hasClass('active');
+    assert.dom('[role="tab"]:nth-child(2)').hasClass('disabled');
   });
 });

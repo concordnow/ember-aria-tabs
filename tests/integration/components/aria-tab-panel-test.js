@@ -9,7 +9,7 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
   test('it renders with sane defaults', async function (assert) {
     await render(hbs`<AriaTabPanel>Hola</AriaTabPanel>`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.dom(this.element).hasText('');
   });
 
   test('it renders when selected', async function (assert) {
@@ -18,20 +18,19 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
       hbs`<AriaTabPanel id="myId" @selectedIndex={{0}} @panelIds={{panelIds}}>Hola</AriaTabPanel>`
     );
 
-    assert.equal(this.element.textContent.trim(), 'Hola');
+    assert.dom(this.element).hasText('Hola');
   });
 
   test('it renders when forced', async function (assert) {
     await render(hbs`<AriaTabPanel @forceRender={{true}}>Hola</AriaTabPanel>`);
 
-    assert.equal(this.element.textContent.trim(), 'Hola');
+    assert.dom(this.element).hasText('Hola');
   });
 
   test('it renders with class', async function (assert) {
     await render(hbs`<AriaTabPanel class="foobar" />`);
 
-    let tabPanel = this.element.querySelector('[role="tabpanel"]');
-    assert.equal(tabPanel.classList.contains('foobar'), true);
+    assert.dom('[role="tabpanel"]').hasClass('foobar');
   });
 
   test('it supports being selected with custom class name', async function (assert) {
@@ -48,15 +47,17 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
       </AriaTabPanel>
   `);
 
-    let tabPanel = this.element.querySelector('[role="tabpanel"]');
-    assert.equal(tabPanel.getAttribute('aria-labelledby'), '1234');
-    assert.equal(tabPanel.classList.contains('selected'), true);
+    assert
+      .dom('[role="tabpanel"]')
+      .hasAttribute('aria-labelledby', '1234')
+      .hasClass('selected');
   });
 
   test('it should pass through custom properties', async function (assert) {
     await render(hbs`<AriaTabPanel data-tooltip="Tooltip contents" />`);
 
-    let tab = this.element.querySelector('[role="tabpanel"]');
-    assert.equal(tab.getAttribute('data-tooltip'), 'Tooltip contents');
+    assert
+      .dom('[role="tabpanel"]')
+      .hasAttribute('data-tooltip', 'Tooltip contents');
   });
 });
