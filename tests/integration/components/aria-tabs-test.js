@@ -169,6 +169,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
   });
 
   test('it updates selectedIndex when clicked', async function (assert) {
+    assert.expect(2);
     await createTabs();
 
     await click(findAll('[role="tab"]')[1]);
@@ -177,6 +178,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
   });
 
   test('it updates selectedIndex when tab child is clicked', async function (assert) {
+    assert.expect(2);
     await render(hbs`
       <AriaTabs as |at|>
         <at.tabList as |tl|>
@@ -243,6 +245,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
   test('it changes the selected tab in controlled mode', async function (assert) {
     this.tabIndex = 0;
+    assert.expect(10);
 
     await render(hbs`
       <AriaTabs @selectedIndex={{this.tabIndex}} @onSelect={{fn (mut this.tabIndex)}} as |at|>
@@ -274,6 +277,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
   });
 
   test('it does not change selectedIndex when clicking a disabled tab', async function (assert) {
+    assert.expect(2);
     await createTabs();
 
     await click(findAll('[role="tab"]')[3]);
@@ -282,6 +286,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
   });
 
   test('it updates selectedIndex when arrow right key pressed', async function (assert) {
+    assert.expect(2);
     await createTabs();
 
     let target = findAll('[role="tab"]')[1];
@@ -294,6 +299,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
   });
 
   test('it does not not change selectedIndex when arrow left key pressed on a disabled tab', async function (assert) {
+    assert.expect(2);
     await createTabs();
 
     let target = findAll('[role="tab"]')[0];
@@ -451,6 +457,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
   });
 
   test('it cancels if event handler returns false', async function (assert) {
+    assert.expect(6);
     this.set('onSelect', () => false);
 
     await render(hbs`
@@ -482,6 +489,8 @@ module('Integration | Component | aria-tabs', function (hooks) {
   });
 
   test('it trigger onSelect handler when clicking', async function (assert) {
+    assert.expect(5);
+
     let wasClicked = false;
     this.set('onSelect', () => {
       wasClicked = true;
@@ -514,6 +523,8 @@ module('Integration | Component | aria-tabs', function (hooks) {
   });
 
   test('it trigger onSelect handler when clicking on open tab', async function (assert) {
+    assert.expect(5);
+
     let wasClicked = false;
     this.set('onSelect', () => {
       wasClicked = true;
@@ -580,6 +591,8 @@ module('Integration | Component | aria-tabs', function (hooks) {
   });
 
   test('it handles complex layout', async function (assert) {
+    assert.expect(1);
+
     await render(hbs`
       <AriaTabs @forceRenderTabPanel={{true}} @defaultIndex={{1}} as |at|>
         <at.tabList as |tl|>
