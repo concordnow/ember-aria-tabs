@@ -159,12 +159,14 @@ export default class AriaTabsComponent extends Component {
   // Need debounce to avoid double computation on the same loop
   updateTabIds() {
     this.tabIds = this._tabIds;
+    this.didUpsert();
   }
 
   // Ember 3.16
   // Need debounce to avoid double computation on the same loop
   updatePanelIds() {
     this.panelIds = this._panelIds;
+    this.didUpsert();
   }
 
   @action
@@ -195,7 +197,6 @@ export default class AriaTabsComponent extends Component {
     debounce(this, this.updateTabIds, 0);
   }
 
-  @action
   didUpsert() {
     if (!isNone(this.previousMode) && this.previousMode !== this.mode) {
       throw new Error(

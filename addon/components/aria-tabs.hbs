@@ -1,9 +1,4 @@
-<div
-  class={{this.className}}
-  ...attributes
-  {{did-insert this.didUpsert this.tabIds this.panelIds @selectedIndex}}
-  {{did-update this.didUpsert this.tabIds this.panelIds @selectedIndex}}
->
+<div class={{this.className}} ...attributes>
   {{yield
     (hash
       tabList=(component
@@ -14,7 +9,9 @@
         onClick=this.handleClick
         onKeyUp=this.handleKeyUp
         panelIds=this.panelIds
-        selectedIndex=this.selectedIndex
+        selectedIndex=(if
+          this.isModeControlled @selectedIndex this.selectedIndex
+        )
         selectedTabClassName=this.selectedTabClassName
         tabIds=this.tabIds
         willDestroyNode=this.willDestroyTab
@@ -24,7 +21,9 @@
         didInsertNode=this.didInsertPanel
         forceRender=@forceRenderTabPanel
         panelIds=this.panelIds
-        selectedIndex=this.selectedIndex
+        selectedIndex=(if
+          this.isModeControlled @selectedIndex this.selectedIndex
+        )
         selectedTabPanelClassName=this.selectedTabPanelClassName
         tabIds=this.tabIds
         willDestroyNode=this.willDestroyPanel
