@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 
 export default class DocsUsageController extends Controller {
   uncontrolledMode = `
-<AriaTabs @defaultIndex={{1}} @onSelect={{action onSelect}} as |at|>
+<AriaTabs @defaultIndex={{1}} @onSelect={{action this.onSelect}} as |at|>
   <at.tabList as |tl|>
     <tl.tab>Title 1</tl.tab>
     <tl.tab>Title 2</tl.tab>
