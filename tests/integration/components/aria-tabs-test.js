@@ -125,7 +125,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
     });
 
     await render(hbs`
-      <AriaTabs @onSelect={{action onSelect}} as |at|>
+      <AriaTabs @onSelect={{action this.onSelect}} as |at|>
         <at.tabList as |tl|>
           <tl.tab>Foo</tl.tab>
           <tl.tab>Bar</tl.tab>
@@ -461,7 +461,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
     this.set('onSelect', () => false);
 
     await render(hbs`
-      <AriaTabs @onSelect={{action onSelect}} as |at|>
+      <AriaTabs @onSelect={{action this.onSelect}} as |at|>
         <at.tabList as |tl|>
           <tl.tab>Foo</tl.tab>
           <tl.tab>Bar</tl.tab>
@@ -497,7 +497,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
     });
 
     await render(hbs`
-      <AriaTabs @onSelect={{action onSelect}} as |at|>
+      <AriaTabs @onSelect={{action this.onSelect}} as |at|>
         <at.tabList as |tl|>
           <tl.tab>Foo</tl.tab>
           <tl.tab>Bar</tl.tab>
@@ -531,7 +531,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
     });
 
     await render(hbs`
-      <AriaTabs @onSelect={{action onSelect}} as |at|>
+      <AriaTabs @onSelect={{action this.onSelect}} as |at|>
         <at.tabList as |tl|>
           <tl.tab>Foo</tl.tab>
           <tl.tab>Bar</tl.tab>

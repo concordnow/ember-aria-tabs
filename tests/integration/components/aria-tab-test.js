@@ -21,7 +21,7 @@ module('Integration | Component | aria-tab', function (hooks) {
   test('it support being selected', async function (assert) {
     this.set('tabIds', ['abcd']);
     await render(hbs`
-      <AriaTab id="abcd" @tabIds={{tabIds}} @selectedIndex={{0}}>
+      <AriaTab id="abcd" @tabIds={{this.tabIds}} @selectedIndex={{0}}>
         Hello
       </AriaTab>
     `);
@@ -35,7 +35,7 @@ module('Integration | Component | aria-tab', function (hooks) {
   test('it support being selected with custom class name', async function (assert) {
     this.set('tabIds', ['abcd']);
     await render(
-      hbs`<AriaTab id="abcd" @tabIds={{tabIds}} @selectedIndex={{0}} @selectedClassName="cool" />`
+      hbs`<AriaTab id="abcd" @tabIds={{this.tabIds}} @selectedIndex={{0}} @selectedClassName="cool" />`
     );
 
     assert.dom('[role="tab"]').hasClass('cool');
