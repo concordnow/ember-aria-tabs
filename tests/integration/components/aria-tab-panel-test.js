@@ -15,7 +15,7 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
   test('it renders when selected', async function (assert) {
     this.set('panelIds', ['myId']);
     await render(
-      hbs`<AriaTabPanel id="myId" @selectedIndex={{0}} @panelIds={{panelIds}}>Hola</AriaTabPanel>`
+      hbs`<AriaTabPanel id="myId" @selectedIndex={{0}} @panelIds={{this.panelIds}}>Hola</AriaTabPanel>`
     );
 
     assert.equal(this.element.textContent.trim(), 'Hola');
@@ -39,7 +39,7 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
     await render(hbs`
       <AriaTabPanel
         id="abcd"
-        @panelIds={{panelIds}}
+        @panelIds={{this.panelIds}}
         @selectedClassName="selected"
         @selectedIndex={{0}}
         @tabId="1234"
