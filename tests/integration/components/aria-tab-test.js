@@ -9,7 +9,7 @@ module('Integration | Component | aria-tab', function (hooks) {
   test('it renders with sane default', async function (assert) {
     await render(hbs`<AriaTab />`);
 
-    assert.dom('[role="tab"]').hasText('');
+    assert.dom('[role="tab"]').hasNoText();
   });
 
   test('it renders with class', async function (assert) {

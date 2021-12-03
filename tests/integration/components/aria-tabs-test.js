@@ -54,9 +54,9 @@ module('Integration | Component | aria-tabs', function (hooks) {
     assert.dom(disabledTab[0]).hasText('Qux');
 
     assert.dom(tabPanels[0]).hasText('Hello Foo');
-    assert.dom(tabPanels[1]).hasText('');
-    assert.dom(tabPanels[2]).hasText('');
-    assert.dom(tabPanels[3]).hasText('');
+    assert.dom(tabPanels[1]).hasNoText();
+    assert.dom(tabPanels[2]).hasNoText();
+    assert.dom(tabPanels[3]).hasNoText();
   });
 
   test('it renders with positive defaultIndex prop', async function (assert) {
@@ -82,10 +82,10 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     assert.equal(selectedTab.length, 1);
     assert.dom(selectedTab[0]).hasText('Bar');
-    assert.dom(tabPanels[0]).hasText('');
+    assert.dom(tabPanels[0]).hasNoText();
     assert.dom(tabPanels[1]).hasText('Hello Bar');
-    assert.dom(tabPanels[2]).hasText('');
-    assert.dom(tabPanels[3]).hasText('');
+    assert.dom(tabPanels[2]).hasNoText();
+    assert.dom(tabPanels[3]).hasNoText();
   });
 
   test('it renders with negative defaultIndex prop', async function (assert) {
@@ -111,10 +111,10 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     assert.equal(selectedTab.length, 0);
 
-    assert.dom(tabPanels[0]).hasText('');
-    assert.dom(tabPanels[1]).hasText('');
-    assert.dom(tabPanels[2]).hasText('');
-    assert.dom(tabPanels[3]).hasText('');
+    assert.dom(tabPanels[0]).hasNoText();
+    assert.dom(tabPanels[1]).hasNoText();
+    assert.dom(tabPanels[2]).hasNoText();
+    assert.dom(tabPanels[3]).hasNoText();
   });
 
   test('it calls onSelect when selection changes', async function (assert) {
@@ -267,12 +267,12 @@ module('Integration | Component | aria-tabs', function (hooks) {
     assert.dom(tabs[1]).hasText('Bar false');
 
     assert.dom(panels[0]).hasText('Hello Foo true');
-    assert.dom(panels[1]).hasText('');
+    assert.dom(panels[1]).hasNoText();
 
     await click(tabs[1]);
     assertTabSelected(assert, 1);
 
-    assert.dom(panels[0]).hasText('');
+    assert.dom(panels[0]).hasNoText();
     assert.dom(panels[1]).hasText('Hello Bar true');
   });
 
@@ -316,19 +316,19 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     let tabPanels = findAll('[role="tabpanel"]');
     assert.dom(tabPanels[0]).hasText('Hello Foo');
-    assert.dom(tabPanels[1]).hasText('');
-    assert.dom(tabPanels[2]).hasText('');
+    assert.dom(tabPanels[1]).hasNoText();
+    assert.dom(tabPanels[2]).hasNoText();
 
     await click(findAll('[role="tab"]')[1]);
 
-    assert.dom(tabPanels[0]).hasText('');
+    assert.dom(tabPanels[0]).hasNoText();
     assert.dom(tabPanels[1]).hasText('Hello Bar');
-    assert.dom(tabPanels[2]).hasText('');
+    assert.dom(tabPanels[2]).hasNoText();
 
     await click(findAll('[role="tab"]')[2]);
 
-    assert.dom(tabPanels[0]).hasText('');
-    assert.dom(tabPanels[1]).hasText('');
+    assert.dom(tabPanels[0]).hasNoText();
+    assert.dom(tabPanels[1]).hasNoText();
     assert.dom(tabPanels[2]).hasText('Hello Baz');
   });
 
@@ -359,7 +359,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
   test('it renders without children', async function (assert) {
     await render(hbs`<AriaTabs />`);
-    assert.dom(this.element).hasText('');
+    assert.dom(this.element).hasNoText();
   });
 
   test('it renders with just tabList', async function (assert) {
@@ -368,7 +368,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
         <at.tabList />
       </AriaTabs>
     `);
-    assert.dom(this.element).hasText('');
+    assert.dom(this.element).hasNoText();
   });
 
   test('it renders conditionally', async function (assert) {

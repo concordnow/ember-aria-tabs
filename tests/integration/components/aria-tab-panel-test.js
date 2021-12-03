@@ -9,7 +9,7 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
   test('it renders with sane defaults', async function (assert) {
     await render(hbs`<AriaTabPanel>Hola</AriaTabPanel>`);
 
-    assert.dom(this.element).hasText('');
+    assert.dom(this.element).hasNoText();
   });
 
   test('it renders when selected', async function (assert) {
