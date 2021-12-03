@@ -12,7 +12,7 @@ module('Integration | Component | aria-tab-list', function (hooks) {
 
     await render(hbs`<AriaTabList />`);
 
-    assert.dom('[role="tablist"]').hasText('');
+    assert.dom('[role="tablist"]').hasNoText();
   });
 
   test('it renders with the default class', async function (assert) {
