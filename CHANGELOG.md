@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump dependencies
+- Drop ember 3.16 support
+
 ## [5.0.0] - 2021-09-09
 
 ### Changed
