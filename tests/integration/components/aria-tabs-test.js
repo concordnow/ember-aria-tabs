@@ -47,10 +47,10 @@ module('Integration | Component | aria-tabs', function (hooks) {
     let tabs = findAll('[role="tab"]');
     let tabPanels = findAll('[role="tabpanel"]');
     let disabledTab = findAll('[role="tab"][aria-disabled="true"]');
-    assert.equal(tabList.length, 1);
-    assert.equal(tabs.length, 4);
-    assert.equal(tabPanels.length, 4);
-    assert.equal(disabledTab.length, 1);
+    assert.strictEqual(tabList.length, 1);
+    assert.strictEqual(tabs.length, 4);
+    assert.strictEqual(tabPanels.length, 4);
+    assert.strictEqual(disabledTab.length, 1);
     assert.dom(disabledTab[0]).hasText('Qux');
 
     assert.dom(tabPanels[0]).hasText('Hello Foo');
@@ -80,7 +80,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
     let selectedTab = findAll('[role="tab"][aria-selected="true"]');
     let tabPanels = findAll('[role="tabpanel"]');
 
-    assert.equal(selectedTab.length, 1);
+    assert.strictEqual(selectedTab.length, 1);
     assert.dom(selectedTab[0]).hasText('Bar');
     assert.dom(tabPanels[0]).hasNoText();
     assert.dom(tabPanels[1]).hasText('Hello Bar');
@@ -109,7 +109,7 @@ module('Integration | Component | aria-tabs', function (hooks) {
     let selectedTab = findAll('[role="tab"][aria-selected="true"]');
     let tabPanels = findAll('[role="tabpanel"]');
 
-    assert.equal(selectedTab.length, 0);
+    assert.strictEqual(selectedTab.length, 0);
 
     assert.dom(tabPanels[0]).hasNoText();
     assert.dom(tabPanels[1]).hasNoText();
@@ -143,8 +143,8 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     await click(findAll('[role="tab"]')[1]);
 
-    assert.equal(called.index, 1);
-    assert.equal(called.last, 0);
+    assert.strictEqual(called.index, 1);
+    assert.strictEqual(called.last, 0);
   });
 
   test('it renders with class names', async function (assert) {
@@ -389,8 +389,8 @@ module('Integration | Component | aria-tabs', function (hooks) {
 
     let tabs = findAll('[role="tab"]');
     let tabPanels = findAll('[role="tabpanel"]');
-    assert.equal(tabs.length, 1);
-    assert.equal(tabPanels.length, 1);
+    assert.strictEqual(tabs.length, 1);
+    assert.strictEqual(tabPanels.length, 1);
   });
 
   test('it supports nested tabs', async function (assert) {
@@ -417,10 +417,10 @@ module('Integration | Component | aria-tabs', function (hooks) {
     await click(findAll('.second > [role="tablist"] > [role="tab"]')[1]);
 
     const tab = findAll('.first > [role="tablist"] > [role="tab"]')[0];
-    assert.equal(tab.getAttribute('aria-selected'), 'true');
+    assert.strictEqual(tab.getAttribute('aria-selected'), 'true');
 
     const tab2 = findAll('.second > [role="tablist"] > [role="tab"]')[1];
-    assert.equal(tab2.getAttribute('aria-selected'), 'true');
+    assert.strictEqual(tab2.getAttribute('aria-selected'), 'true');
   });
 
   test('it allows other DOM nodes', async function (assert) {
@@ -444,16 +444,16 @@ module('Integration | Component | aria-tabs', function (hooks) {
     `);
 
     const buttons = findAll('#tabs-nav-wrapper button');
-    assert.equal(buttons.length, 2);
+    assert.strictEqual(buttons.length, 2);
     assert.dom(buttons[0]).hasText('Left');
     assert.dom(buttons[1]).hasText('Right');
 
     let tabList = findAll('.tabs-container [role="tablist"]');
     let tabs = findAll('.tabs-container [role="tab"]');
     let tabPanels = findAll('.tab-panels [role="tabpanel"]');
-    assert.equal(tabList.length, 1);
-    assert.equal(tabs.length, 2);
-    assert.equal(tabPanels.length, 2);
+    assert.strictEqual(tabList.length, 1);
+    assert.strictEqual(tabs.length, 2);
+    assert.strictEqual(tabPanels.length, 2);
   });
 
   test('it cancels if event handler returns false', async function (assert) {
@@ -672,6 +672,6 @@ module('Integration | Component | aria-tabs', function (hooks) {
     await percySnapshot(assert);
 
     // Prevent 0 assertion exception
-    assert.equal(0, 0);
+    assert.strictEqual(0, 0);
   });
 });
