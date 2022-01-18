@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/github-script@v5
         with:
+          debug: true
           script: |
             const wait = (ms) => new Promise(resolve => setTimeout(() => resolve('done'), ms));
             let workflowPending = true;
