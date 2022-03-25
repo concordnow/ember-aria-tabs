@@ -3,9 +3,9 @@
   class={{this.classNames}}
   id={{this.elementId}}
   role="tabpanel"
-  ...attributes
   {{did-insert this.didInsertNode}}
   {{will-destroy this.willDestroyNode}}
+  ...attributes
 >
   {{~#if this.shouldYield~}}
     {{yield (hash selected=this.selected)}}

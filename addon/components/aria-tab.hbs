@@ -8,13 +8,13 @@
   id={{this.elementId}}
   role="tab"
   tabindex={{this.tabIndex}}
-  ...attributes
   {{did-insert this.didInsertNode}}
   {{will-destroy this.willDestroyNode}}
   {{did-insert this.checkFocus}}
   {{did-update this.checkFocus}}
   {{on "click" this.onClick}}
   {{on "keyup" this.onKeyUp}}
+  ...attributes
 >
   {{yield (hash selected=this.selected)}}
 </li>
