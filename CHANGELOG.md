@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix whitespace control in panel
+
 ## [6.0.0] - 2021-12-03
 
 ### Changed
