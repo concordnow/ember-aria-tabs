@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.0.1] - 2022-03-25
+
 ### Fixed
 
 - Fix whitespace control in panel
@@ -135,6 +137,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First implementation
 
+[6.0.1]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/concordnow/ember-aria-tabs/compare/v5.0.0...v6.0.0
 [5.0.0]: https://github.com/concordnow/ember-aria-tabs/compare/v4.0.2...v5.0.0
 [4.0.2]: https://github.com/concordnow/ember-aria-tabs/compare/v4.0.1...v4.0.2
@@ -153,4 +156,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.0]: https://github.com/concordnow/ember-aria-tabs/releases/tag/1.0.0
 
 
-[Unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.0...HEAD
+[Unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.1...HEAD
