@@ -590,6 +590,29 @@ module('Integration | Component | aria-tabs', function (hooks) {
     assert.dom('[data-test-panel-bar]').isVisible();
   });
 
+  test('it handles negative default index', async function (assert) {
+    await render(hbs`
+      <AriaTabs @defaultIndex={{-1}} as |at|>
+        <at.tabList as |tl|>
+          <tl.tab data-test-tab-foo>Foo</tl.tab>
+          <tl.tab>Bar</tl.tab>
+          <tl.tab>Baz</tl.tab>
+          <tl.tab @disabled={{true}}>Qux</tl.tab>
+        </at.tabList>
+        <at.tabPanel data-test-panel-foo>Hello Foo</at.tabPanel>
+        <at.tabPanel data-test-panel-bar>Hello Bar</at.tabPanel>
+        <at.tabPanel>Hello Baz</at.tabPanel>
+        <at.tabPanel>Hello Qux</at.tabPanel>
+      </AriaTabs>
+    `);
+
+    assert.dom('[data-test-panel-foo]').isNotVisible();
+
+    await click('[data-test-tab-foo]');
+
+    assert.dom('[data-test-panel-foo]').isVisible();
+  });
+
   test('it handles complex layout', async function (assert) {
     assert.expect(1);
 
