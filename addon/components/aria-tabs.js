@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { cached } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { A } from '@ember/array';
-import { debounce } from '@ember/runloop';
 import { tracked } from '@glimmer/tracking';
 import { isNone } from '@ember/utils';
 
@@ -23,8 +22,6 @@ const DEFAULT_CLASS = 'ember-tabs';
  */
 export default class AriaTabsComponent extends Component {
   className = DEFAULT_CLASS;
-  _tabIds = A([]);
-  _panelIds = A([]);
   @tracked tabNodes = A([]);
   @tracked tabIds = A([]);
   @tracked panelNodes = A([]);
@@ -155,46 +152,32 @@ export default class AriaTabsComponent extends Component {
       : MODE_CONTROLLED;
   }
 
-  // Ember 3.16
-  // Need debounce to avoid double computation on the same loop
-  updateTabIds() {
-    this.tabIds = this._tabIds;
-    this.didUpsert();
-  }
-
-  // Ember 3.16
-  // Need debounce to avoid double computation on the same loop
-  updatePanelIds() {
-    this.panelIds = this._panelIds;
-    this.didUpsert();
-  }
-
   @action
   didInsertPanel(elementId, element) {
     this.panelNodes = A([...this.panelNodes, element]);
-    this._panelIds = A([...this._panelIds, elementId]);
-    debounce(this, this.updatePanelIds, 0);
+    this.panelIds = A([...this.panelIds, elementId]);
+    this.didUpsert();
   }
 
   @action
   willDestroyPanel(elementId, element) {
     this.panelNodes = A(this.panelNodes.without(element));
-    this._panelIds = A(this._panelIds.without(elementId));
-    debounce(this, this.updatePanelIds, 0);
+    this.panelIds = A(this.panelIds.without(elementId));
+    this.didUpsert();
   }
 
   @action
   didInsertTab(elementId, element) {
     this.tabNodes = A([...this.tabNodes, element]);
-    this._tabIds = A([...this._tabIds, elementId]);
-    debounce(this, this.updateTabIds, 0);
+    this.tabIds = A([...this.tabIds, elementId]);
+    this.didUpsert();
   }
 
   @action
   willDestroyTab(elementId, element) {
     this.tabNodes = A(this.tabNodes.without(element));
-    this._tabIds = A(this._tabIds.without(elementId));
-    debounce(this, this.updateTabIds, 0);
+    this.tabIds = A(this.tabIds.without(elementId));
+    this.didUpsert();
   }
 
   didUpsert() {
