@@ -161,8 +161,8 @@ export default class AriaTabsComponent extends Component {
 
   @action
   willDestroyPanel(elementId, element) {
-    this.panelNodes = A(this.panelNodes.without(element));
-    this.panelIds = A(this.panelIds.without(elementId));
+    this.panelNodes = A(this.panelNodes.filter((el) => el !== element));
+    this.panelIds = A(this.panelIds.filter((el) => el !== elementId));
     this.didUpsert();
   }
 
@@ -175,8 +175,8 @@ export default class AriaTabsComponent extends Component {
 
   @action
   willDestroyTab(elementId, element) {
-    this.tabNodes = A(this.tabNodes.without(element));
-    this.tabIds = A(this.tabIds.without(elementId));
+    this.tabNodes = A(this.tabNodes.filter((el) => el !== element));
+    this.tabIds = A(this.tabIds.filter((el) => el !== elementId));
     this.didUpsert();
   }
 
