@@ -15,7 +15,11 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
   test('it renders when selected', async function (assert) {
     this.set('panelIds', ['myId']);
     await render(
-      hbs`<AriaTabPanel id="myId" @selectedIndex={{0}} @panelIds={{this.panelIds}}>Hola</AriaTabPanel>`
+      hbs`<AriaTabPanel
+  id='myId'
+  @selectedIndex={{0}}
+  @panelIds={{this.panelIds}}
+>Hola</AriaTabPanel>`
     );
 
     assert.dom(this.element).hasText('Hola');
@@ -28,24 +32,22 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
   });
 
   test('it renders with class', async function (assert) {
-    await render(hbs`<AriaTabPanel class="foobar" />`);
+    await render(hbs`<AriaTabPanel class='foobar' />`);
 
     assert.dom('[role="tabpanel"]').hasClass('foobar');
   });
 
   test('it supports being selected with custom class name', async function (assert) {
     this.set('panelIds', ['abcd']);
-    await render(hbs`
-      <AriaTabPanel
-        id="abcd"
-        @panelIds={{this.panelIds}}
-        @selectedClassName="selected"
-        @selectedIndex={{0}}
-        @tabId="1234"
-      >
-        Hola
-      </AriaTabPanel>
-  `);
+    await render(hbs`<AriaTabPanel
+  id='abcd'
+  @panelIds={{this.panelIds}}
+  @selectedClassName='selected'
+  @selectedIndex={{0}}
+  @tabId='1234'
+>
+  Hola
+</AriaTabPanel>`);
 
     assert
       .dom('[role="tabpanel"]')
@@ -54,7 +56,7 @@ module('Integration | Component | aria-tab-panel', function (hooks) {
   });
 
   test('it should pass through custom properties', async function (assert) {
-    await render(hbs`<AriaTabPanel data-tooltip="Tooltip contents" />`);
+    await render(hbs`<AriaTabPanel data-tooltip='Tooltip contents' />`);
 
     assert
       .dom('[role="tabpanel"]')

@@ -22,7 +22,7 @@ module('Integration | Component | aria-tab-list', function (hooks) {
   });
 
   test('it renders with class', async function (assert) {
-    await render(hbs`<AriaTabList class="foobar" />`);
+    await render(hbs`<AriaTabList class='foobar' />`);
 
     assert
       .dom('[role="tablist"]')
@@ -31,7 +31,7 @@ module('Integration | Component | aria-tab-list', function (hooks) {
   });
 
   test('it pass through custom properties', async function (assert) {
-    await render(hbs`<AriaTabList data-tooltip="Tooltip contents" />`);
+    await render(hbs`<AriaTabList data-tooltip='Tooltip contents' />`);
 
     assert
       .dom('[role="tablist"]')
@@ -39,16 +39,14 @@ module('Integration | Component | aria-tab-list', function (hooks) {
   });
 
   test('it retains the default classnames for active and disabled tab', async function (assert) {
-    await render(hbs`
-      <AriaTabs @defaultIndex={{0}} as |at|>
-        <at.tabList as |tl|>
-          <tl.tab>Foo</tl.tab>
-          <tl.tab @disabled={{true}}>Bar</tl.tab>
-        </at.tabList>
-        <at.tabPanel>Foo</at.tabPanel>
-        <at.tabPanel>Bar</at.tabPanel>
-      </AriaTabs>
-    `);
+    await render(hbs`<AriaTabs @defaultIndex={{0}} as |at|>
+  <at.tabList as |tl|>
+    <tl.tab>Foo</tl.tab>
+    <tl.tab @disabled={{true}}>Bar</tl.tab>
+  </at.tabList>
+  <at.tabPanel>Foo</at.tabPanel>
+  <at.tabPanel>Bar</at.tabPanel>
+</AriaTabs>`);
 
     assert
       .dom('[role="tab"]:nth-child(2)')
@@ -56,40 +54,41 @@ module('Integration | Component | aria-tab-list', function (hooks) {
   });
 
   test('it display the custom classnames for selected and disabled tab specified on tabs', async function (assert) {
-    await render(hbs`
-      <AriaTabs
-        @defaultIndex={{0}}
-        @selectedTabClassName="active"
-        @disabledTabClassName="disabled"
-      as |at|>
-        <at.tabList as |tl|>
-          <tl.tab>Foo</tl.tab>
-          <tl.tab @disabled={{true}}>Bar</tl.tab>
-        </at.tabList>
-        <at.tabPanel>Foo</at.tabPanel>
-        <at.tabPanel>Bar</at.tabPanel>
-      </AriaTabs>
-    `);
+    await render(hbs`<AriaTabs
+  @defaultIndex={{0}}
+  @selectedTabClassName='active'
+  @disabledTabClassName='disabled'
+  as |at|
+>
+  <at.tabList as |tl|>
+    <tl.tab>Foo</tl.tab>
+    <tl.tab @disabled={{true}}>Bar</tl.tab>
+  </at.tabList>
+  <at.tabPanel>Foo</at.tabPanel>
+  <at.tabPanel>Bar</at.tabPanel>
+</AriaTabs>`);
 
     assert.dom('[role="tab"]:nth-child(1)').hasClass('active');
     assert.dom('[role="tab"]:nth-child(2)').hasClass('disabled');
   });
 
   test('it display the custom classnames for selected and disabled tab', async function (assert) {
-    await render(hbs`
-      <AriaTabs @defaultIndex={{0}} as |at|>
-        <at.tabList as |tl|>
-          <tl.tab @selectedClassName="active" @disabledClassName="disabled">
-            Foo
-          </tl.tab>
-          <tl.tab @disabled={{true}} @selectedClassName="active" @disabledClassName="disabled">
-            Bar
-          </tl.tab>
-        </at.tabList>
-        <at.tabPanel>Foo</at.tabPanel>
-        <at.tabPanel>Bar</at.tabPanel>
-      </AriaTabs>
-    `);
+    await render(hbs`<AriaTabs @defaultIndex={{0}} as |at|>
+  <at.tabList as |tl|>
+    <tl.tab @selectedClassName='active' @disabledClassName='disabled'>
+      Foo
+    </tl.tab>
+    <tl.tab
+      @disabled={{true}}
+      @selectedClassName='active'
+      @disabledClassName='disabled'
+    >
+      Bar
+    </tl.tab>
+  </at.tabList>
+  <at.tabPanel>Foo</at.tabPanel>
+  <at.tabPanel>Bar</at.tabPanel>
+</AriaTabs>`);
 
     assert.dom('[role="tab"]:nth-child(1)').hasClass('active');
     assert.dom('[role="tab"]:nth-child(2)').hasClass('disabled');
