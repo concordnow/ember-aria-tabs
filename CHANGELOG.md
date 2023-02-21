@@ -7,9 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+## [7.0.0] - 2023-02-21
 
+### Fixed
+- Lint issues
+- Fix incompatible ember-qunit dependency with older ember versions
+- Fix dependabot automerge
 - Remove Array prototype extension usage
+
+### Changed
+- Upgrade @ember/render-modifiers from 2.0.4 to 2.0.5
+- Upgrade @ember/test-helpers from 2.6.0 to 2.9.3
+- Upgrade @embroider/test-setup from 1.5.0 to 2.1.1
+- Upgrade @glimmer/component from 1.0.4 to 1.1.2
+- Upgrade @glimmer/tracking from 1.0.4 to 1.1.2
+- Upgrade @percy/cli from 1.0.0-beta.76 to 1.20.0
+- Upgrade @percy/ember from 3.0.0 to 4.2.0
+- Upgrade @xmldom/xmldom from 0.8.3 to 0.8.6
+- Upgrade async from 2.6.3 to 2.6.4
+- Upgrade decode-uri-component from 0.2.0 to 0.2.2
+- Upgrade dependabot/fetch-metadata from 1.3.0 to 1.3.6
+- Upgrade ember-auto-import from 2.4.0 to 2.6.0
+- Upgrade ember-cached-decorator-polyfill from 0.1.4 to 1.0.1
+- Upgrade ember-cli-dependency-checker from 3.2.0 to 3.3.1
+- Upgrade ember-cli-htmlbars from 6.0.1 to 6.2.0
+- Upgrade ember-qunit from 5.1.5 to 6.1.1
+- Upgrade ember-resolver from 8.0.3 to 10.0.0
+- Upgrade ember-template-lint from 4.3.0 to 5.5.1
+- Upgrade ember-template-lint-plugin-prettier from 4.0.0 to 4.1.0
+- Upgrade engine.io from 3.5.0 to 6.2.1
+- Upgrade eslint-config-prettier from 8.5.0 to 8.6.0
+- Upgrade eslint-plugin-ember from 10.5.9 to 11.4.6
+- Upgrade eslint-plugin-prettier from 4.0.0 to 4.2.1
+- Upgrade eslint-plugin-qunit from 7.2.0 to 7.3.4
+- Upgrade http-cache-semantics from 4.1.0 to 4.1.1
+- Upgrade loader-utils from 1.4.0 to 1.4.2
+- Upgrade minimatch from 3.0.4 to 3.1.2
+- Upgrade mout from 1.2.3 to 1.2.4
+- Upgrade parse-url from 6.0.0 to 6.0.2
+- Upgrade prettier from 2.6.0 to 2.8.4
+- Upgrade qunit from 2.18.0 to 2.19.4
+- Upgrade release-it from 14.13.1 to 14.14.3
+- Upgrade shell-quote from 1.7.2 to 1.7.3
+- Upgrade terser from 4.8.0 to 4.8.1
+- Upgrade vm2 from 3.9.9 to 3.9.11
+- Upgrade webpack from 5.70.0 to 5.75.0
 
 ## [6.0.2] - 2022-03-28
 
