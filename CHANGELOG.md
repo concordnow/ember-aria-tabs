@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [7.0.0] - 2023-02-21
 
+## [7.0.0] - 2023-02-21
+
 ### Fixed
 - Lint issues
 - Fix incompatible ember-qunit dependency with older ember versions
@@ -189,6 +191,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First implementation
 
+[7.0.0]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.2...v7.0.0
 [6.0.2]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.1...v6.0.2
 [6.0.1]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/concordnow/ember-aria-tabs/compare/v5.0.0...v6.0.0
@@ -209,4 +212,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.0]: https://github.com/concordnow/ember-aria-tabs/releases/tag/1.0.0
 
 
-[unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.2...HEAD
+[unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v7.0.0...HEAD
