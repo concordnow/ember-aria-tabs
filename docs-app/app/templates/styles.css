@@ -1,0 +1,172 @@
+/* stylelint-disable selector-class-pattern */
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable-next-line import-notation */
+@import 'tailwindcss' important;
+
+/* ================================
+   GLOBAL BASE STYLES
+   ================================ */
+body {
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  color: #1f2937; /* text-gray-800 */
+  background-color: #fff;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Global links outside prose */
+a {
+  color: #2563eb; /* text-blue-600 */
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+a:hover,
+a:focus {
+  color: #1d4ed8; /* text-blue-700 */
+}
+
+/* ================================
+     SIDEBAR NAVIGATION SCOPED STYLES
+     ================================ */
+nav a {
+  color: #374151; /* text-gray-700 */
+  text-decoration: none;
+  display: block;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+nav a:hover,
+nav a:focus {
+  background-color: #e0f2fe; /* blue-100 */
+  color: #1d4ed8; /* text-blue-700 */
+}
+
+/* ================================
+     SCOPED TYPOGRAPHY STYLES
+     .prose -> only affects main content
+     ================================ */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: #111827; /* text-gray-900 */
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h1 {
+  font-size: 2.25rem;
+} /* text-4xl */
+.prose h2 {
+  font-size: 1.875rem;
+} /* text-3xl */
+.prose h3 {
+  font-size: 1.5rem;
+} /* text-2xl */
+.prose h4 {
+  font-size: 1.25rem;
+} /* text-xl */
+.prose h5 {
+  font-size: 1.125rem;
+} /* text-lg */
+.prose h6 {
+  font-size: 1rem;
+} /* text-base */
+
+.prose p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose ul li,
+.prose ol li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose a {
+  color: #2563eb;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.prose a:hover,
+.prose a:focus {
+  color: #1d4ed8;
+}
+
+.prose blockquote {
+  border-left: 4px solid #d1d5db;
+  padding-left: 1rem;
+  color: #6b7280;
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.prose pre,
+.prose code {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    monospace;
+  color: #111827;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+  white-space: pre;
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+  overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Inline code inside prose */
+.prose p code,
+.prose li code,
+.prose h1 code,
+.prose h2 code,
+.prose h3 code,
+.prose h4 code,
+.prose h5 code,
+.prose h6 code {
+  padding: 0.25rem 0.5rem;
+  background-color: #f3f4f6;
+  border-radius: 0.25rem;
+}
