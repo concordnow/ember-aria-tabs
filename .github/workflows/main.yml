@@ -97,7 +97,7 @@ jobs:
         env:
           ROOT_URL: ${{ github.event.repository.name }}
       - name: 'Deploy documentation'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
