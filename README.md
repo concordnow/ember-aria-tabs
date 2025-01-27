@@ -10,19 +10,17 @@ An accessible and easy tab component for EmberJS. Documentation can be found [he
 Compatibility
 ------------------------------------------------------------------------------
 
-* Ember.js v3.20 or above
-* Ember CLI v3.20 or above
-* Node.js v12 or above
+* Ember.js v4.12 or above
+* Ember CLI v4.12 or above
+* Node.js v18 or above
 * ember-auto-import >= 2
-
 
 Installation
 ------------------------------------------------------------------------------
 
-```
+```shell
 ember install ember-aria-tabs
 ```
-
 
 Usage
 ------------------------------------------------------------------------------
@@ -47,18 +45,15 @@ Here is a basic example:
 
 You can find more examples [here](https://concordnow.github.io/ember-aria-tabs/#/docs/examples).
 
-
 Thanks
 ------------------------------------------------------------------------------
 
 * [react-tabs](https://github.com/reactjs/react-tabs)
 
-
 Contributing
 ------------------------------------------------------------------------------
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
-
 
 License
 ------------------------------------------------------------------------------
