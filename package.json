@@ -8,8 +8,8 @@
     "aria",
     "ember-addon"
   ],
-  "repository": "https://github.com/concordnow/ember-aria-tabs",
-  "homepage": "https://concordnow.github.io/ember-aria-tabs",
+  "repository": "https://github.com/ember-adopted-addons/ember-aria-tabs",
+  "homepage": "https://ember-adopted-addons.github.io/ember-aria-tabs",
   "license": "MIT",
   "author": "Concord Worlwide Inc.",
   "directories": {
