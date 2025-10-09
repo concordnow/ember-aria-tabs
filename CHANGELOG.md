@@ -5,9 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+-## [Unreleased]
 
-## [7.0.0] - 2023-02-21
+-## [Released]
+
+## [7.1.0] - 2025-10-09
+
+### Changed
+* Upgrade @percy/cli from 1.20.0 to 1.23.0
+* Upgrade dependabot/fetch-metadata from 1.3.6 to 1.4.0
+* Upgrade ember-auto-import from 2.6.0 to 2.6.1
+* Upgrade ember-qunit from 6.1.1 to 6.2.0
+* Upgrade ember-resolver from 10.0.0 to 10.1.0
+* Upgrade ember-template-lint from 5.5.1 to 5.7.3
+* Upgrade engine.io and socket.io
+* Upgrade eslint-config-prettier from 8.6.0 to 8.8.0
+* Upgrade eslint-plugin-ember from 11.4.6 to 11.5.1
+* Upgrade express from 4.18.2 to 4.21.2
+* Upgrade minimist from 0.2.1 to 0.2.4
+* Upgrade prettier from 2.8.4 to 2.8.7
+* Upgrade vm2 from 3.9.11 to 3.9.17
+* Upgrade webpack from 5.75.0 to 5.98.0
+* reduce dependabot pr limit
 
 ## [7.0.0] - 2023-02-21
 
