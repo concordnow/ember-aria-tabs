@@ -31,6 +31,7 @@ module.exports = async function () {
         // removed. Unblocking requires moving ember-source past the 3.28
         // LTS pin and reworking the dummy app, which is a breaking change
         // for addon consumers and out of scope here.
+        // TODO(@YoanRoullard): drop when ember-source moves off the 3.28 LTS pin.
         allowedToFail: true,
         npm: {
           devDependencies: {
@@ -105,6 +106,8 @@ module.exports = async function () {
             },
           },
         }),
+        // TODO(@YoanRoullard): drop when @ember/test-helpers can be bumped to 3.x
+        // (blocked by ember-qunit 5.x compat with the LTS 3.20/3.24 scenarios).
         allowedToFail: true,
       },
       {
@@ -115,6 +118,8 @@ module.exports = async function () {
             },
           },
         }),
+        // TODO(@YoanRoullard): drop when @ember/test-helpers can be bumped to 3.x
+        // (blocked by ember-qunit 5.x compat with the LTS 3.20/3.24 scenarios).
         allowedToFail: true,
       },
     ],
