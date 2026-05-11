@@ -54,6 +54,8 @@ jobs:
     needs: test
 
     strategy:
+      # Keep running every scenario even when one fails; some are marked
+      # allowedToFail in config/ember-try.js and we want full matrix signal.
       fail-fast: false
       matrix:
         ember-try-scenario:
