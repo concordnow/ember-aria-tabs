@@ -10,7 +10,7 @@ on:
     - cron: '0 3 * * *' # daily, at 3am
 
 env:
-  NODE_VERSION: '16'
+  NODE_VERSION: '20'
 
 jobs:
   test:
@@ -54,7 +54,7 @@ jobs:
     needs: test
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         ember-try-scenario:
           - ember-lts-3.20
