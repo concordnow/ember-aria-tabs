@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -## [Unreleased]
 
+## [7.1.1] - 2026-05-12
+
 ### Changed
 * Remediate 31 Dependabot CVEs (2 critical + 13 high + 10 moderate + 6 low) → 0 alerts. Dev-only bumps + targeted `overrides`; no addon source changes.
 * Bump Node toolchain from 16 to 20 (`engines.node`, `volta.node`, CI). **Contributor-only impact** — apps consuming the published addon are unaffected (transpiled output).
@@ -216,6 +218,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First implementation
 
+[7.1.1]: https://github.com/concordnow/ember-aria-tabs/compare/v7.1.0...v7.1.1
 [7.1.0]: https://github.com/concordnow/ember-aria-tabs/compare/v7.0.0...v7.1.0
 [7.0.0]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.2...v7.0.0
 [6.0.2]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.1...v6.0.2
@@ -238,4 +241,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.0]: https://github.com/concordnow/ember-aria-tabs/releases/tag/1.0.0
 
 
-[unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v7.1.0...HEAD
+[Unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v7.1.1...HEAD
