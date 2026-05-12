@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -## [Unreleased]
 
+### Changed
+* Remediate 31 Dependabot CVEs (2 critical + 13 high + 10 moderate + 6 low) → 0 alerts. Dev-only bumps + targeted `overrides`; no addon source changes.
+* Bump Node toolchain from 16 to 20 (`engines.node`, `volta.node`, CI). **Contributor-only impact** — apps consuming the published addon are unaffected (transpiled output).
+
 ## [7.1.0] - 2025-10-09
 
 -## [Released]

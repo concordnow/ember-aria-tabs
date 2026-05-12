@@ -10,7 +10,7 @@ on:
     - cron: '0 3 * * *' # daily, at 3am
 
 env:
-  NODE_VERSION: '16'
+  NODE_VERSION: '20'
 
 jobs:
   test:
@@ -54,7 +54,9 @@ jobs:
     needs: test
 
     strategy:
-      fail-fast: true
+      # Keep running every scenario even when one fails; some are marked
+      # allowedToFail in config/ember-try.js and we want full matrix signal.
+      fail-fast: false
       matrix:
         ember-try-scenario:
           - ember-lts-3.20
