@@ -25,14 +25,45 @@ module.exports = async function () {
         },
       },
       {
-        name: 'ember-release',
-        // Allowed to fail: the dummy app's ember-export-application-global
-        // initializer relies on Ember.String.classify, which Ember 4+
-        // removed. Unblocking requires moving ember-source past the 3.28
-        // LTS pin and reworking the dummy app, which is a breaking change
-        // for addon consumers and out of scope here.
-        // TODO(@YoanRoullard): drop when ember-source moves off the 3.28 LTS pin.
+        name: 'ember-lts-5.4',
+        npm: {
+          devDependencies: {
+            'ember-source': '~5.4.0',
+            'ember-qunit': '^8.0.2',
+            '@ember/test-helpers': '^4.0.4',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-5.12',
+        npm: {
+          devDependencies: {
+            'ember-source': '~5.12.0',
+            'ember-qunit': '^8.1.1',
+            '@ember/test-helpers': '^4.0.4',
+          },
+        },
+      },
+      {
+        name: 'ember-lts-6.12',
+        // Allowed to fail: the test bundle is loaded through the legacy AMD
+        // bundle path of ember-cli 4.12, which Ember 6.x raises as the
+        // `using-amd-bundles` deprecation. `raiseOnDeprecation` in the test
+        // setup then prevents the test loader from running ("No tests were
+        // run"). The addon itself builds and installs fine.
+        // TODO(@YoanRoullard): drop once ember-cli is bumped to a version
+        // that loads Ember via ES modules (planned in a follow-up PR).
         allowedToFail: true,
+        npm: {
+          devDependencies: {
+            'ember-source': '~6.12.0',
+            'ember-qunit': '^9.0.4',
+            '@ember/test-helpers': '^5.4.2',
+          },
+        },
+      },
+      {
+        name: 'ember-release',
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('release'),
