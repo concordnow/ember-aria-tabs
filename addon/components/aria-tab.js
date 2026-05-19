@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { cached, tracked } from '@glimmer/tracking';
-import { A } from '@ember/array';
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { next } from '@ember/runloop';
@@ -93,12 +92,12 @@ export default class AriaTabComponent extends Component {
 
   @cached
   get nodeIndex() {
-    return A(this.args.tabIds).indexOf(this.elementId);
+    return (this.args.tabIds ?? []).indexOf(this.elementId);
   }
 
   @cached
   get panelId() {
-    return A(this.args.panelIds)[this.nodeIndex];
+    return (this.args.panelIds ?? [])[this.nodeIndex];
   }
 
   @cached

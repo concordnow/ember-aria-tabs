@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { cached } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { A } from '@ember/array';
 import { tracked } from '@glimmer/tracking';
 import { isNone } from '@ember/utils';
 
@@ -22,10 +21,10 @@ const DEFAULT_CLASS = 'ember-tabs';
  */
 export default class AriaTabsComponent extends Component {
   className = DEFAULT_CLASS;
-  @tracked tabNodes = A([]);
-  @tracked tabIds = A([]);
-  @tracked panelNodes = A([]);
-  @tracked panelIds = A([]);
+  @tracked tabNodes = [];
+  @tracked tabIds = [];
+  @tracked panelNodes = [];
+  @tracked panelIds = [];
   @tracked previousMode = null;
   @tracked selectedIndex = null;
 
@@ -154,29 +153,29 @@ export default class AriaTabsComponent extends Component {
 
   @action
   didInsertPanel(elementId, element) {
-    this.panelNodes = A([...this.panelNodes, element]);
-    this.panelIds = A([...this.panelIds, elementId]);
+    this.panelNodes = [...this.panelNodes, element];
+    this.panelIds = [...this.panelIds, elementId];
     this.didUpsert();
   }
 
   @action
   willDestroyPanel(elementId, element) {
-    this.panelNodes = A(this.panelNodes.filter((el) => el !== element));
-    this.panelIds = A(this.panelIds.filter((el) => el !== elementId));
+    this.panelNodes = this.panelNodes.filter((el) => el !== element);
+    this.panelIds = this.panelIds.filter((el) => el !== elementId);
     this.didUpsert();
   }
 
   @action
   didInsertTab(elementId, element) {
-    this.tabNodes = A([...this.tabNodes, element]);
-    this.tabIds = A([...this.tabIds, elementId]);
+    this.tabNodes = [...this.tabNodes, element];
+    this.tabIds = [...this.tabIds, elementId];
     this.didUpsert();
   }
 
   @action
   willDestroyTab(elementId, element) {
-    this.tabNodes = A(this.tabNodes.filter((el) => el !== element));
-    this.tabIds = A(this.tabIds.filter((el) => el !== elementId));
+    this.tabNodes = this.tabNodes.filter((el) => el !== element);
+    this.tabIds = this.tabIds.filter((el) => el !== elementId);
     this.didUpsert();
   }
 
