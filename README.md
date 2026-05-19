@@ -10,9 +10,10 @@ An accessible and easy tab component for EmberJS. Documentation can be found [he
 Compatibility
 ------------------------------------------------------------------------------
 
-* Ember.js v3.20 or above
+* Ember.js v3.20 or above (CI-validated up to v5.12 LTS; v6.x install-only
+  pending an ember-cli bump)
 * Ember CLI v3.20 or above
-* Node.js v12 or above
+* Node.js v20 or above
 * ember-auto-import >= 2
 
 
