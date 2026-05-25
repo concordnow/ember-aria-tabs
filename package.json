@@ -105,6 +105,7 @@
     "braces": "^3.0.3",
     "micromatch": "^4.0.8",
     "markdown-it": "^14.1.1",
-    "clean-css": "^5.3.3"
+    "clean-css": "^5.3.3",
+    "qs": "^6.15.2"
   }
 }
