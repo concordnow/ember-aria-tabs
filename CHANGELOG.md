@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.1.2] - 2026-05-25
+
 ### Added
 * Add ember-try scenarios for Ember 5.x and 6.x
 
@@ -220,6 +222,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First implementation
 
+[7.1.2]: https://github.com/concordnow/ember-aria-tabs/compare/v7.1.1...v7.1.2
 [7.1.1]: https://github.com/concordnow/ember-aria-tabs/compare/v7.1.0...v7.1.1
 [7.1.0]: https://github.com/concordnow/ember-aria-tabs/compare/v7.0.0...v7.1.0
 [7.0.0]: https://github.com/concordnow/ember-aria-tabs/compare/v6.0.2...v7.0.0
@@ -243,4 +246,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.0]: https://github.com/concordnow/ember-aria-tabs/releases/tag/1.0.0
 
 
-[Unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v7.1.1...HEAD
+[Unreleased]: https://github.com/concordnow/ember-aria-tabs/compare/v7.1.2...HEAD
