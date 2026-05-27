@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+* Pin `qs` to `^6.15.2` to remediate GHSA-q8mj-m7cp-5q26 (dev-only override, no consumer impact)
+
 ## [7.1.2] - 2026-05-25
 
 ### Added
