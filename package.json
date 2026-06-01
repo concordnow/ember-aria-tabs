@@ -98,7 +98,7 @@
     "undici": "^7.24.5",
     "@babel/runtime": "^7.26.10",
     "@babel/helpers": "^7.26.10",
-    "tmp": "^0.2.5",
+    "tmp": "^0.2.6",
     "got": "^11.8.6",
     "diff": "^8.0.3",
     "ansi-html": "npm:ansi-html-community@^0.0.8",
