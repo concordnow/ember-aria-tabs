@@ -64,6 +64,19 @@ module.exports = async function () {
       },
       {
         name: 'ember-release',
+        // Allowed to fail: since Ember 7.0 (2026-05-12) the release channel
+        // ships a pure v2 addon with no legacy AMD/vendor bundles and no
+        // `paths` export. ember-cli 4.12's `_initVendorFiles` reads
+        // `ember.paths.debug` unconditionally, so the build crashes with
+        // `TypeError: Cannot read properties of undefined (reading 'debug')`
+        // before any test runs. Same root cause as ember-lts-6.12 above, one
+        // major further along: there the AMD bundle is merely deprecated,
+        // here it is gone.
+        // This scenario was green until 54eb066 dropped the flag, which was
+        // validated against release=6.12 days before 7.0 shipped.
+        // TODO(@YoanRoullard): drop once ember-cli is bumped to a version
+        // that loads Ember via ES modules (planned in a follow-up PR).
+        allowedToFail: true,
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('release'),
