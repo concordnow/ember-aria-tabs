@@ -19,7 +19,9 @@ When reviewing merged PR's the labels to be used are:
 
 ## Release
 
-Once the prep work is completed, the actual release is straight forward: 
+Once the prep work is completed, the actual release is straight forward:
 - you just need to merge the open PR into `master`
-- `npm run release` 
-- `npm publish` 
+- `npm run release`
+- `npm publish`
+
+`release-it` v21 requires Node `^22.21.0 || >=24.0.0`, which is why `volta.node` pins 22.23.2. If you don't use Volta, switch to a matching Node version before running `npm run release`.
