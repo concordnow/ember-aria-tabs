@@ -105,7 +105,7 @@
     "ansi-html": "npm:ansi-html-community@^0.0.8",
     "braces": "^3.0.3",
     "micromatch": "^4.0.8",
-    "markdown-it": "^14.2.0",
+    "markdown-it": "^14.3.2",
     "clean-css": "^5.3.3",
     "qs": "^6.15.2",
     "ws": "^8.20.1",
