@@ -3,7 +3,6 @@ ember-aria-tabs
 
 [![Build Status](https://github.com/concordnow/ember-aria-tabs/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/concordnow/ember-aria-tabs/actions/workflows/main.yml)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-aria-tabs.svg)](https://emberobserver.com/addons/ember-aria-tabs)
-[![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/concordnow/ember-aria-tabs)
 
 An accessible and easy tab component for EmberJS. Documentation can be found [here](https://concordnow.github.io/ember-aria-tabs/)
 

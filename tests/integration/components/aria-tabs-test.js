@@ -7,7 +7,6 @@ import {
   focus,
   triggerKeyEvent,
 } from '@ember/test-helpers';
-import percySnapshot from '@percy/ember';
 import hbs from 'htmlbars-inline-precompile';
 
 function createTabs() {
@@ -700,8 +699,6 @@ module('Integration | Component | aria-tabs', function (hooks) {
     </AriaTabs>
   </at.tabPanel>
 </AriaTabs>`);
-
-    await percySnapshot(assert);
 
     // Prevent 0 assertion exception
     assert.strictEqual(0, 0);

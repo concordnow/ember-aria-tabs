@@ -30,9 +30,7 @@ jobs:
             ${{ runner.os }}-node-
       - run: npm ci
       - run: npm run lint
-      - run: npm run test:percy
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      - run: npm run test:ember
 
   floating-dependencies:
     name: 'Floating Dependencies'
